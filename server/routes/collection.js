@@ -35,4 +35,11 @@ router.post('/collection', (req, res)=>{
   })
 })
 
+router.post('/colRemove', (req, res) => {
+  let user_id = req.body.user_id;
+  let plant_id = req.body.plant_id;
+  db.collection.destroy({where: {user_id: user_id, plant_id: plant_id}})
+  .then(deletedPlant => console.log(`${deletedPlant} deleted from collection`))
+})
+
 module.exports = router;

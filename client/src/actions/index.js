@@ -87,9 +87,13 @@ export const addToCollectionDb = (plant) => async dispatch =>{
 export const displayCollectionDb = (plant) => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
     dispatch({type: DISPLAY_COL_ITEMS, 
-        payload: plant});
+        payload: response.plant});
 }
 
 export const removeFromCollectionDb = (plant) => async dispatch => {
-    
+    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: localStorage.plant_id})
+    console.log(`removed ${response} from collection`)
+    dispatch({type: COL_REMOVE_PLANT, payload: plant})
+    localStorage.removeItem('plant_id')
 }
+
