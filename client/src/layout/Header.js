@@ -90,6 +90,9 @@ const NavBarDesktop = () => (
             <Menu.Item as={Link} to='/search'>
                 Search
             </Menu.Item>
+            <Menu.Item as={Link} to='/wishlist'>
+                Wishlist
+            </Menu.Item>
         </Menu.Menu>
     </Menu>
 );

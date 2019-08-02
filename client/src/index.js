@@ -15,6 +15,8 @@ import reducers from './reducers';
 import Header from './layout/Header';
 import reduxThunk from 'redux-thunk';
 import Search from './components/Search';
+import Wishlist from './components/wishlist'
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let store = createStore(reducers, {
@@ -33,6 +35,7 @@ ReactDOM.render(
                     <Route path='/signin' component={Signin}/>
                     <Route path='/signup' component={Signup}/>
                     <Route path='/signout' component={Signout}/>
+                    <Route path='/wishlist' component={Wishlist}/>
                 </Switch>
             </Header>
         </BrowserRouter>

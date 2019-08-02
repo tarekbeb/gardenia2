@@ -11,6 +11,7 @@ let collectionReducer = (state = Initial_State, action) => {
     
     switch(action.type){
         case COL_ADD_PLANT:
+            console.log(`inside of reducer ${action.payload}`)
             return {
                 ...state,
                 collection: state.collection.concat({
@@ -26,11 +27,15 @@ let collectionReducer = (state = Initial_State, action) => {
             }
             
         case COL_REMOVE_PLANT:
+
+            console.log(`inside of col remove plant ${action.payload}`)
+
+            let newCollection = state.collection.filter((plant)=>{
+                return plant.name !== action.payload.name
+                })
             return  {
                 ...state,
-                collection: state.collection.filter((plant)=>{
-                    return plant.name !== action.plant.name
-                    })
+                collection: newCollection
             }
         default:
             return state;

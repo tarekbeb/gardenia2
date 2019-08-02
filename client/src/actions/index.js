@@ -65,7 +65,7 @@ export const signout = () => {
 export const addToCollectionDb = (plant) => async dispatch =>{
 
     // try{
-        console.log(`indide addtocollectionDB plant ID ${plant.id}`)
+        console.log(`indide addtocollectionDB plant ID ${plant.item.id}`)
         let response = await axios.post('/colAdd', 
         {plant_id : plant.id, user_id: localStorage.user_id})
 
@@ -91,9 +91,10 @@ export const displayCollectionDb = (plant) => async dispatch => {
 }
 
 export const removeFromCollectionDb = (plant) => async dispatch => {
-    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: localStorage.plant_id})
-    console.log(`removed ${response} from collection`)
-    dispatch({type: COL_REMOVE_PLANT, payload: plant})
-    localStorage.removeItem('plant_id')
+    
+    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plant.item.id})
+    console.log(`${plant.item.id}`)
+    dispatch({type: COL_REMOVE_PLANT, payload: plant.item})
+    // localStorage.removeItem('plant_id')
 }
 
