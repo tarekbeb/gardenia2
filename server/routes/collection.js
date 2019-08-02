@@ -27,7 +27,6 @@ router.post('/colAdd', (req, res)=>{
 });
 
 router.post('/collection', (req, res)=>{
-  let plant_id = req.body.plant_id;
   let user_id = req.body.user_id;
   db.collection.findAll({where : {user_id: user_id}})
   .then((result) =>{

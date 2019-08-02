@@ -147,6 +147,8 @@ class Search extends React.Component {
 
   displayCollection(){
     let collection = this.props.displayCollectionDb()
+    console.log(`display collection function ${collection}`)
+    return collection;
   }
 
   addToCollection(e){
@@ -164,8 +166,7 @@ class Search extends React.Component {
             this.props.onaddItemToCollection(plant)
             this.props.addToCollectionDb(plant)
             this.displayCollection()
-            // console.log(this.state.collection[0])
-            // console.log(`plant obj: ${plant.name}`)
+            
           })
         }
       }
@@ -223,7 +224,7 @@ class Search extends React.Component {
           <section className="section">
             <h2>Collection</h2>
             <ul>
-              {this.props.collection.map(item => (
+              {this.state.collection.map(item => (
                 <li ref="plantCollection" key={item.id}>{item.name}
                   <button onClick={this.removeFromCollection}>
                     Remove

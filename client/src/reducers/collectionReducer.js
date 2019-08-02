@@ -11,8 +11,6 @@ let collectionReducer = (state = Initial_State, action) => {
     
     switch(action.type){
         case COL_ADD_PLANT:
-            let test = action.payload;
-            console.log(`inside collection reducer: ${test.name}`)
             return {
                 ...state,
                 collection: state.collection.concat({
@@ -22,8 +20,8 @@ let collectionReducer = (state = Initial_State, action) => {
         case DISPLAY_COL_ITEMS:
             return {
                 ...state,
-                collection: state.collection.map(plant =>{
-                    return console.log(`display collection case: ${plant}`)
+                collection: state.collection.concat({
+                    plant: action.payload
                 })
             }
             

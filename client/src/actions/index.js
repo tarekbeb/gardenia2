@@ -86,7 +86,10 @@ export const addToCollectionDb = (plant) => async dispatch =>{
 
 export const displayCollectionDb = (plant) => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
-    decodeToken(response.data.token)
     dispatch({type: DISPLAY_COL_ITEMS, 
-        payload: response});
+        payload: plant});
+}
+
+export const removeFromCollectionDb = (plant) => async dispatch => {
+    
 }
