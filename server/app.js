@@ -4,6 +4,7 @@ const app = express();
 
 app.use(require('./routes/Authentication'))
 app.use(require('./routes/collection'))
+app.use(require('./routes/wishlist'))
 
 
 app.listen('3001', (req, res)=>{

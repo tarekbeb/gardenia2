@@ -9,32 +9,35 @@ class Wishlist extends React.Component {
       super(props);
       this.state = {
         plants: jsonPlants,
+        plant: [],
         wishlist: []
       }
+      this.addToWishlist = this.addToWishlist.bind(this)
     }
 
-addToWishlist(e){
-  e.preventDefault();
-  // console.log(`event happened ${e}`)
-  // console.log(this.refs.plantName.value)
-  // let plants = this.state.plants;
-  // let plantName = this.refs.plantName.value
-  // if (plantName !== ''){
-  //   for(let i=0; i<plants.length; i++){
-  //     let plant = plants[i];
-  //     if (plantName === plant.name){
-  //         this.props.addToWishlistDb(plant)
-  //         console.log(`added to wishlist db`)
-  //       }
-  //     }
-  //   }
-  //   else{
-  //     console.log('fill blank')
-  //   }
+    addToWishlist(e){
+        e.preventDefault();
+  console.log(`event happened ${e}`)
+  console.log(this.refs.plantNames.value)
+  let plants = this.state.plants;
+  let plantName = this.refs.plantNames.value
+  if (plantName !== ''){
+    for(let i=0; i<plants.length; i++){
+      let plant = plants[i];
+      if (plantName === plant.name){
+          this.props.addToWishlistDb(plant)
+          console.log(`added to wishlist db`)
+        }
+      }
+    }
+    else{
+      console.log('fill blank')
+    }
   }     
 
 
 render() {
+    console.log(`Global state wishlist: ${this.props.wishlist}`)
     return (
         <div>
             <section>
@@ -49,7 +52,7 @@ render() {
                 type="text"
                 id="addInput"
                 placeholder="Plant Name"
-                ref="plantName"
+                ref="plantNames"
               />
               <button type="submit">
                 Add Item
