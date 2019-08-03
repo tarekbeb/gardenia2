@@ -1,9 +1,7 @@
 import { COL_ADD_PLANT, COL_REMOVE_PLANT, DISPLAY_COL_ITEMS} from '../actions/types';
 
 const Initial_State = {
-    collection: [],
-    addedToCollection: "",
-    addedToCollectionError: ""
+    collection: []
 }
 
 let collectionReducer = (state = Initial_State, action) => {

@@ -1,6 +1,6 @@
 let addItemToWishlist = (item) => {
     return ({
-        type: 'addItemToWishlist',
+        type: 'WISH_ADD_PLANT',
         plant: item
     })
   }

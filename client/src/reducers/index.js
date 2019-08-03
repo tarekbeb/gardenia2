@@ -5,10 +5,12 @@ import auth from './auth';
 // import addItem from './addItem';
 import collectionReducer from './collectionReducer'
 import weatherReducer from './weatherReducer';
+import wishlistReducer from './wishlistReducer'
 
 export default combineReducers({
     auth: auth,
     form: formReducer,
     weatherReducer: weatherReducer,
-    collectionReducer: collectionReducer
+    collectionReducer: collectionReducer,
+    wishlistReducer: wishlistReducer
 })
