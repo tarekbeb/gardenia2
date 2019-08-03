@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT} from './types';
+import { AUTH_USER, AUTH_ERROR, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT, WISH_DISPLAY_PLANT} from './types';
 import axios from 'axios';
 
 
@@ -84,16 +84,16 @@ export const addToCollectionDb = (plant) => async dispatch =>{
     // }
 };
 
-export const displayCollectionDb = (plant) => async dispatch => {
+export const displayCollectionDb = () => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
     dispatch({type: DISPLAY_COL_ITEMS, 
-        payload: response.plant});
+        payload: response});
 }
 
-export const removeFromCollectionDb = (plant) => async dispatch => {
+export const removeFromCollectionDb = (plants) => async dispatch => {
     
-    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plant.item.id})
-    console.log(`${plant.item.id}`)
+    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plants.plant_id})
+    console.log(`${plants.plant_id}`)
     dispatch({type: COL_REMOVE_PLANT, payload: plant.item})
     // localStorage.removeItem('plant_id')
 }
@@ -103,6 +103,11 @@ export const addToWishlistDb = (plant) => async dispatch => {
     console.log(`add wishlist axios response ${response}`)
     console.log(`payload plant${plant.name}`)
     dispatch({type: WISH_ADD_PLANT, payload: plant})
+}
+
+export const displayWishlistDb = (user_id = localStorage.user_id) => async dispatch => {
+    let response = await axios.post(`/wishlist`)
+    dispatch({ type: WISH_DISPLAY_PLANT, payload: response.data });
 }
 
 
