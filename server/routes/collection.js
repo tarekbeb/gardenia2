@@ -32,7 +32,7 @@ router.post('/collection', (req, res)=>{
   let user_id = req.body.user_id;
   db.collection.findAll({where : {user_id: user_id}})
   .then((result) =>{
-    console.log(result)
+    // console.log(result)
     res.send(result)
   })
 })

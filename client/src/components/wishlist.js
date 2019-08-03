@@ -1,7 +1,7 @@
 import React from 'react';
 import jsonData from '../data/plants.json';
 import {connect} from 'react-redux';
-import {addToWishlistDb} from '../actions'
+import {addToWishlistDb, displayWishlistDb} from '../actions'
 
 let jsonPlants = jsonData.plants
 class Wishlist extends React.Component {
@@ -25,6 +25,7 @@ addToWishlist(e){
       let plant = plants[i];
       if (plantName === plant.name){
           this.props.addToWishlistDb(plant)
+          this.props.displayWishlistDb()
           console.log(`added to wishlist db`)
         }
       }
@@ -80,7 +81,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-      addToWishlistDb : (plant) => dispatch(addToWishlistDb(plant))
+      addToWishlistDb : (plant) => dispatch(addToWishlistDb(plant)),
+      displayWishlistDb: () => dispatch(displayWishlistDb())
     }
   }
 

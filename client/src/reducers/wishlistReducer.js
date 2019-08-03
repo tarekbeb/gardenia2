@@ -7,10 +7,18 @@ const Initial_State = {
 let wishlistReducer = (state = Initial_State, action) => {
     switch (action.type){
         case WISH_ADD_PLANT:
-            console.log(`inside wishlist add reducer ${action.payload.name}`)
+            console.log(`inside wishlist add reducer ${action.payload.plant.name}`)
             return {
                 ...state,
                 wishlist: state.wishlist.concat({
+                    plant: action.payload
+                })
+            }
+        case WISH_DISPLAY_PLANT: 
+            console.log(`inside wishlist display reducer ${action.payload.plant.name}`)
+            return {
+                ...state,
+                wishlist : state.wishlist.concat({
                     plant: action.payload
                 })
             }

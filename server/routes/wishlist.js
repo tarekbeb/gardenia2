@@ -6,6 +6,7 @@ let router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
+
 router.post('/wishAdd', (req, res) => {
     let plant_id = req.body.plant_id;
     let user_id = req.body.user_id;
@@ -22,6 +23,16 @@ router.post('/wishAdd', (req, res) => {
       }
     })
     .catch(err => res.send(err))
+})
+
+router.post(`/wishlist/`, (req, res) => {
+    let user_id = req.body.user_id;
+
+    console.log(user_id)
+    db.wishlist.findAll({where: user_id = user_id})
+    .then((plants) => {
+      res.send(plants)
+    })
 })
 
 module.exports = router;

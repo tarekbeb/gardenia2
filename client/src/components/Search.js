@@ -39,7 +39,7 @@ class Search extends React.Component {
           }, ()=>{
             // this.props.onaddItemToCollection(plant)
             this.props.addToCollectionDb(plant)
-            this.displayCollection()
+            // this.displayCollection()
             
           })
         }
@@ -50,11 +50,11 @@ class Search extends React.Component {
     }
   }
 
-  removeFromCollection(e, item){
+  removeFromCollection(e, plants){
     e.preventDefault();
-    console.log(item)
+    console.log(plants)
 
-    this.props.removeFromCollectionDb(item)
+    this.props.removeFromCollectionDb(plants)
   //   let plantCollection = this.refs.plantCollection
   //   let collection = this.props.collection.slice();
   //   console.log(collection)
@@ -70,9 +70,10 @@ class Search extends React.Component {
 //   });
 }
 
-// componentWillMount(){
-
-// }
+componentWillMount(){
+  this.displayCollection();
+  console.log(`inside component did mount`)
+}
 
   render() {
     console.log(`Global state collection: ${this.props.collection}`)
@@ -100,12 +101,14 @@ class Search extends React.Component {
           <section className="section">
             <h2>Collection</h2>
             <ul>
-              {this.state.collection.map(item => (
-                <li key={item.id}>{item.name}
-                  <button onClick={(e)=> this.removeFromCollection(e, {item})}>
+              {this.props.collection.map(item => (
+                item.plant.data.map(plants => (
+                  <li key={plants.plant_id}>{plants.plant_id}
+                  <button onClick={(e)=> this.removeFromCollection(e, {plants})}>
                     Remove
                   </button> 
                 </li>
+                ))
               ))}
             </ul>
           </section>
