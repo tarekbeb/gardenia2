@@ -64,25 +64,19 @@ export const signout = () => {
 //Add/remove from collection:
 export const addToCollectionDb = (plant) => async dispatch =>{
 
-    // try{
-        console.log(`indide addtocollectionDB plant ID ${plant.item.id}`)
-        let response = await axios.post('/colAdd', 
-        {plant_id : plant.id, user_id: localStorage.user_id})
+    let response = await axios.post('/colAdd', 
+    {plant_id : plant.id, user_id: localStorage.user_id})
 
-        console.log(`add to collection axios response: ${response}`)
+    console.log(`add to collection axios response: ${response}`)
 
-        //dispatch
+    //dispatch
 
-        dispatch({type: COL_ADD_PLANT, 
-            payload: plant});
+    dispatch({type: COL_ADD_PLANT, 
+        payload: plant});
 
-        localStorage.setItem('plant_id', response.data.plant_id);
-        console.log(`after setItem localstorage ${response.data.plant_id}`)
-    // }
-    // catch(e){
-    //     dispatch({type: COL_ADD_PLANT, payload: 'That plant is already in collection...'})
-    // }
-};
+    localStorage.setItem('plant_id', response.data.plant_id);
+    console.log(`after setItem localstorage ${response.data.plant_id}`) 
+}
 
 export const displayCollectionDb = (plant) => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
