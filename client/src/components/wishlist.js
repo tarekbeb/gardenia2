@@ -1,6 +1,7 @@
 import React from 'react';
 import jsonData from '../data/plants.json';
 import {connect} from 'react-redux';
+import {addToWishlistDb} from '../actions'
 
 let jsonPlants = jsonData.plants
 class Wishlist extends React.Component {
@@ -8,9 +9,30 @@ class Wishlist extends React.Component {
       super(props);
       this.state = {
         plants: jsonPlants,
-        Wishlist: [{}, {}, {}]
+        wishlist: []
       }
     }
+
+addToWishlist(e){
+  e.preventDefault();
+  // console.log(`event happened ${e}`)
+  // console.log(this.refs.plantName.value)
+  // let plants = this.state.plants;
+  // let plantName = this.refs.plantName.value
+  // if (plantName !== ''){
+  //   for(let i=0; i<plants.length; i++){
+  //     let plant = plants[i];
+  //     if (plantName === plant.name){
+  //         this.props.addToWishlistDb(plant)
+  //         console.log(`added to wishlist db`)
+  //       }
+  //     }
+  //   }
+  //   else{
+  //     console.log('fill blank')
+  //   }
+  }     
+
 
 render() {
     return (
@@ -22,8 +44,7 @@ render() {
                 <li key={item.id}>{item.name}</li> 
               ))}
             </ul>
-            {/* onSubmit={this.addToWishlist} */}
-            <form >
+            <form onSubmit={this.addToWishlist}>
               <input
                 type="text"
                 id="addInput"
@@ -35,6 +56,7 @@ render() {
               </button>
             </form>
             </section><hr/>
+
             <section className="section">
             <h2>Collection</h2>
             <ul>
@@ -57,7 +79,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-
-    }}
+      addToWishlistDb : (plant) => dispatch(addToWishlistDb(plant))
+    }
+  }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);

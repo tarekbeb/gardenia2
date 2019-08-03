@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT} from './types';
+import { AUTH_USER, AUTH_ERROR, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT} from './types';
 import axios from 'axios';
 
 
@@ -65,7 +65,7 @@ export const signout = () => {
 export const addToCollectionDb = (plant) => async dispatch =>{
 
     // try{
-        console.log(`indide addtocollectionDB plant ID ${plant.item.id}`)
+        // console.log(`indide addtocollectionDB plant ID ${plant.item.id}`)
         let response = await axios.post('/colAdd', 
         {plant_id : plant.id, user_id: localStorage.user_id})
 
@@ -97,4 +97,12 @@ export const removeFromCollectionDb = (plant) => async dispatch => {
     dispatch({type: COL_REMOVE_PLANT, payload: plant.item})
     // localStorage.removeItem('plant_id')
 }
+
+export const addToWishlistDb = (plant) => async dispatch => {
+    let response = await axios.post('/wishAdd', {user_id: localStorage.user_id, plant_id: plant.id})
+    console.log(`add wishlist axios response ${response}`)
+    console.log(`payload plant.item ${plant.item}`)
+    dispatch({type: WISH_ADD_PLANT, payload: plant.item})
+}
+
 

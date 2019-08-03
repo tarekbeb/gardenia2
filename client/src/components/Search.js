@@ -1,8 +1,8 @@
 import React from 'react';
 import jsonData from '../data/plants.json';
 import {connect} from 'react-redux';
-import addItemToCollection from '../actions/addItemToCollection';
-import removeFromCollection from '../actions/removeFromCollection';
+// import addItemToCollection from '../actions/addItemToCollection';
+// import removeFromCollection from '../actions/removeFromCollection';
 import {addToCollectionDb, displayCollectionDb, removeFromCollectionDb} from '../actions/';
 
 let jsonPlants = jsonData.plants
@@ -87,7 +87,6 @@ class Search extends React.Component {
             </ul>
             <form onSubmit={this.addToCollection}>
               <input
-                value={this.state.plant.id}
                 type="text"
                 id="addInput"
                 placeholder="Plant Name"
