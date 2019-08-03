@@ -11,26 +11,27 @@ class Wishlist extends React.Component {
         plants: jsonPlants,
         wishlist: []
       }
+      this.addToWishlist = this.addToWishlist.bind(this)
+
     }
 
 addToWishlist(e){
-  e.preventDefault();
-  // console.log(`event happened ${e}`)
-  // console.log(this.refs.plantName.value)
-  // let plants = this.state.plants;
-  // let plantName = this.refs.plantName.value
-  // if (plantName !== ''){
-  //   for(let i=0; i<plants.length; i++){
-  //     let plant = plants[i];
-  //     if (plantName === plant.name){
-  //         this.props.addToWishlistDb(plant)
-  //         console.log(`added to wishlist db`)
-  //       }
-  //     }
-  //   }
-  //   else{
-  //     console.log('fill blank')
-  //   }
+  e.preventDefault()
+  console.log(`event happened ${e}`)
+  let plants = this.state.plants;
+  let plantName = this.refs.plantName.value
+  if (plantName !== ''){
+    for(let i=0; i<plants.length; i++){
+      let plant = plants[i];
+      if (plantName === plant.name){
+          this.props.addToWishlistDb(plant)
+          console.log(`added to wishlist db`)
+        }
+      }
+    }
+    else{
+      console.log('fill blank')
+    }
   }     
 
 

@@ -101,8 +101,8 @@ export const removeFromCollectionDb = (plant) => async dispatch => {
 export const addToWishlistDb = (plant) => async dispatch => {
     let response = await axios.post('/wishAdd', {user_id: localStorage.user_id, plant_id: plant.id})
     console.log(`add wishlist axios response ${response}`)
-    console.log(`payload plant.item ${plant.item}`)
-    dispatch({type: WISH_ADD_PLANT, payload: plant.item})
+    console.log(`payload plant${plant.name}`)
+    dispatch({type: WISH_ADD_PLANT, payload: plant})
 }
 
 
