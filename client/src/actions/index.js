@@ -80,25 +80,27 @@ export const addToCollectionDb = (plant) => async dispatch =>{
     console.log(`after setItem localstorage ${response.data.plant_id}`) 
 }
 
-export const displayCollectionDb = (plant) => async dispatch => {
+export const displayCollectionDb = () => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
-    dispatch({type: DISPLAY_COL_ITEMS, 
-        payload: response.plant});
+    console.log('response')
+    console.log(response)
+    dispatch({type: DISPLAY_COL_ITEMS, payload: response});
 }
 
 export const removeFromCollectionDb = (plant) => async dispatch => {
     
-    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plant.item.id})
-    console.log(`${plant.item.id}`)
-    dispatch({type: COL_REMOVE_PLANT, payload: plant.item})
+    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plant.renderPlant.id})
+    console.log('action')
+    console.log(plant.renderPlant)
+    dispatch({type: COL_REMOVE_PLANT, payload: plant.renderPlant})
     // localStorage.removeItem('plant_id')
 }
 
 export const addToWishlistDb = (plant) => async dispatch => {
     let response = await axios.post('/wishAdd', {user_id: localStorage.user_id, plant_id: plant.id})
     console.log(`add wishlist axios response ${response}`)
-    console.log(`payload plant.item ${plant.item}`)
-    dispatch({type: WISH_ADD_PLANT, payload: plant.item})
+    console.log(`payload plant.item ${plant.name}`)
+    dispatch({type: WISH_ADD_PLANT, payload: plant})
 }
 
 

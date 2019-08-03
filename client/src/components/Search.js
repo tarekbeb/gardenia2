@@ -19,10 +19,18 @@ class Search extends React.Component {
     this.removeFromCollection = this.removeFromCollection.bind(this)
   }
 
-  displayCollection(){
-    let collection = this.props.displayCollectionDb()
-    console.log(`display collection function ${collection}`)
-    return collection;
+//   displayCollection(){
+//     let collection = this.props.displayCollectionDb()
+//     console.log(`display collection function ${collection}`)
+//     return collection;
+//   }
+
+  displayCollection() {
+    this.props.displayCollectionDb()
+    .then((result) => {
+        // console.log(result)
+        return result
+    })
   }
 
   addToCollection(e){
@@ -50,11 +58,11 @@ class Search extends React.Component {
     }
   }
 
-  removeFromCollection(e, item){
+  removeFromCollection(e, renderPlant){
     e.preventDefault();
-    console.log(item)
+    console.log(renderPlant)
 
-    this.props.removeFromCollectionDb(item)
+    this.props.removeFromCollectionDb(renderPlant)
   //   let plantCollection = this.refs.plantCollection
   //   let collection = this.props.collection.slice();
   //   console.log(collection)
@@ -70,12 +78,21 @@ class Search extends React.Component {
 //   });
 }
 
-// componentWillMount(){
+componentDidMount(){
+        this.displayCollection()
+        console.log('component')
+        console.log(this.props.collection)
+}
 
-// }
+    // componentWillMount(){
+    //     this.displayCollection()
+    //     console.log(this.props.collection[0])
+    // }
+
 
   render() {
-    console.log(`Global state collection: ${this.props.collection}`)
+      console.log('render')
+      console.log(this.props.collection[0])
     return (
       <div>
         <section>
@@ -100,12 +117,14 @@ class Search extends React.Component {
           <section className="section">
             <h2>Collection</h2>
             <ul>
-              {this.state.collection.map(item => (
-                <li key={item.id}>{item.name}
-                  <button onClick={(e)=> this.removeFromCollection(e, {item})}>
-                    Remove
-                  </button> 
-                </li>
+              {this.props.collection.map(item => (
+                  item.plant.data.map(renderPlant => (
+                    <li key={renderPlant.plant_id}>{renderPlant.plant_id}
+                    <button onClick={(e)=> this.removeFromCollection(e, {renderPlant})}>
+                      Remove
+                    </button> 
+                  </li>
+                  ))
               ))}
             </ul>
           </section>
@@ -125,7 +144,7 @@ let mapDispatchToProps = (dispatch) => {
     // onaddItemToCollection: plant => dispatch(addItemToCollection(plant)),
     removeFromCollectionDb: plant => dispatch(removeFromCollectionDb(plant)), 
     addToCollectionDb: (plant) => dispatch(addToCollectionDb(plant)),
-    displayCollectionDb: (plant) => dispatch(displayCollectionDb(plant))
+    displayCollectionDb: () => dispatch(displayCollectionDb())
   }
 }
 
