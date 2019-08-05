@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT} from './types';
+import { AUTH_USER, AUTH_ERROR, AUTH_SIGNOUT, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT} from './types';
 import axios from 'axios';
 
 
@@ -24,7 +24,7 @@ export const signup = (formProps, callback) => async dispatch =>{
 
         //dispatch
 
-        dispatch({type: AUTH_USER, payload: response.data.token});
+        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true});
 
         localStorage.setItem('token', response.data.token);
         decodeToken(response.data.token)
@@ -40,7 +40,7 @@ export const signin = (formProps, callback) => async dispatch => {
     try {
         let response = await axios.post('/signin', formProps);
         
-        dispatch({type: AUTH_USER, payload: response.data.token});
+        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true});
 
         localStorage.setItem('token', response.data.token);
         decodeToken(response.data.token)
@@ -54,10 +54,11 @@ export const signin = (formProps, callback) => async dispatch => {
 
 export const signout = () => {
 
-    localStorage.removeItem('token')
+    localStorage.clear()
     return {
         type: AUTH_USER,
-        payload: ''
+        payload: '',
+        isLoggedIn: false
     }
 }
 
@@ -83,13 +84,13 @@ export const addToCollectionDb = (plant) => async dispatch =>{
 export const displayCollectionDb = () => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
     console.log('response')
-    console.log(response)
-    dispatch({type: DISPLAY_COL_ITEMS, payload: response});
+    console.log(response.data)
+    dispatch({type: DISPLAY_COL_ITEMS, payload: response.data});
 }
 
 export const removeFromCollectionDb = (plant) => async dispatch => {
     
-    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plant.renderPlant.id})
+    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plant.renderPlant.plant_id})
     console.log('action')
     console.log(plant.renderPlant)
     dispatch({type: COL_REMOVE_PLANT, payload: plant.renderPlant})

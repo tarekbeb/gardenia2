@@ -18,7 +18,6 @@ let requireSignin = passport.authenticate('local', { session: false });
 let tokenForUse = (user) => {
     let timestamp = new Date().getTime;
     return jwt.encode({ user_name: user.username, sub: user.id, iat: timestamp }, config.secret)
-    
 }
 
 // request route => passport => authorized to see route

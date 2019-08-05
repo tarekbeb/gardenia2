@@ -19,19 +19,15 @@ class Search extends React.Component {
     this.removeFromCollection = this.removeFromCollection.bind(this)
   }
 
-//   displayCollection(){
-//     let collection = this.props.displayCollectionDb()
-//     console.log(`display collection function ${collection}`)
-//     return collection;
-//   }
 
-  displayCollection() {
-    this.props.displayCollectionDb()
-    .then((result) => {
-        // console.log(result)
-        return result
-    })
-  }
+    displayCollection() {
+        this.props.displayCollectionDb()
+        console.log("inisde display collctin function")
+
+        // .then((result) => {
+        //     return result
+        // })
+    }
 
   addToCollection(e){
     e.preventDefault();
@@ -60,39 +56,27 @@ class Search extends React.Component {
 
   removeFromCollection(e, renderPlant){
     e.preventDefault();
+    console.log('renderplant')
     console.log(renderPlant)
 
     this.props.removeFromCollectionDb(renderPlant)
-  //   let plantCollection = this.refs.plantCollection
-  //   let collection = this.props.collection.slice();
-  //   console.log(collection)
-  //   console.log(this.state.collection)
-  //   collection.splice(plantCollection.key, 1);
-  // this.setState({
-  //   collection: collection
-  // }, ()=>{
-  //   console.log(this.state.collection)
-  //   // console.log(plantCollection.name)
-  //   this.props.onremoveFromCollection(plantCollection)
-  //   console.log(this.props.collection)
-//   });
+
 }
 
-componentDidMount(){
-        this.displayCollection()
-        console.log('component')
-        console.log(this.props.collection)
-}
-
-    // componentWillMount(){
-    //     this.displayCollection()
-    //     console.log(this.props.collection[0])
-    // }
+// componentWillMount(){
+//         this.displayCollection()
+//         console.log('component')
+//         console.log(this.props.collection)
+// }
 
 
   render() {
-      console.log('render')
-      console.log(this.props.collection[0])
+      console.log('renderrr')
+      console.log(this.props.collection)
+      if(this.props.collection.length == 0){
+        this.displayCollection()
+      }
+
     return (
       <div>
         <section>
@@ -118,7 +102,7 @@ componentDidMount(){
             <h2>Collection</h2>
             <ul>
               {this.props.collection.map(item => (
-                  item.plant.data.map(renderPlant => (
+                  item.plant.map(renderPlant => (
                     <li key={renderPlant.plant_id}>{renderPlant.plant_id}
                     <button onClick={(e)=> this.removeFromCollection(e, {renderPlant})}>
                       Remove

@@ -7,11 +7,6 @@ import * as actions from '../../actions';
 
 class Signup extends React.Component {
 
-    constructor(props) {
-        super(props);
-        
-    }
-
     onSubmit = (formProps) => {
         console.log(formProps)
 

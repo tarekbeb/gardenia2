@@ -1,15 +1,23 @@
 let weatherReducer = (
     state = {
+        zipcode: 0,
         forecast: [],
-        tempMain: {}
+        tempMain: {},
+        weatherImage: {}
 
     }, action) => {
         switch(action.type){
             case 'addZipCode':
                 return {
                     ...state,
-                    forecast: state.forecast,
-                    tempMain: state.tempMain
+                    zipcode: action.zipcode
+                }
+            case 'addWeather':
+                return {
+                    ...state,
+                    forecast: action.forecast,
+                    tempMain: action.tempMain,
+                    weatherImage: action.weatherImage
                 }
         default:
             return state;

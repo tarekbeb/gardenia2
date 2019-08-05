@@ -25,11 +25,20 @@ let collectionReducer = (state = Initial_State, action) => {
             }
             
         case COL_REMOVE_PLANT:
-
-            console.log(`inside of col remove plant ${action.payload}`)
+            console.log('action.payload')
+            console.log(action.payload.plant_id)
 
             let newCollection = state.collection.filter((plant)=>{
-                return plant.name !== action.payload.name
+                console.log('plant')
+                console.log(plant.plant.data)
+                let plantArray = plant.plant.map(item => (
+                    console.log('item'),
+                    console.log(item),
+                    item.plant_id
+                ))
+                console.log('plantArray')
+                console.log(plantArray)
+                return plantArray !== action.payload.plant_id
                 })
             return  {
                 ...state,
