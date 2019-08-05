@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import { AUTH_USER, AUTH_ERROR, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT, WISH_DISPLAY_PLANT, WISH_REMOVE_PLANT} from './types';
+=======
 import { AUTH_USER, AUTH_ERROR, AUTH_SIGNOUT, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT} from './types';
+>>>>>>> master
 import axios from 'axios';
 
 
@@ -53,7 +57,6 @@ export const signin = (formProps, callback) => async dispatch => {
 }
 
 export const signout = () => {
-
     localStorage.clear()
     return {
         type: AUTH_SIGNOUT,
@@ -88,20 +91,45 @@ export const displayCollectionDb = () => async dispatch => {
     dispatch({type: DISPLAY_COL_ITEMS, payload: response.data});
 }
 
-export const removeFromCollectionDb = (plant) => async dispatch => {
+export const removeFromCollectionDb = (plants) => async dispatch => {
     
+//<<<<<<< HEAD
+    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plants.plant_id})
+    console.log(`${plants.plant_id}`)
+    dispatch({type: COL_REMOVE_PLANT, payload: response.item})
+//=======
     let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plant.renderPlant.plant_id})
     console.log('action')
     console.log(plant.renderPlant)
     dispatch({type: COL_REMOVE_PLANT, payload: plant.renderPlant})
+//>>>>>>> master
     // localStorage.removeItem('plant_id')
 }
 
 export const addToWishlistDb = (plant) => async dispatch => {
-    let response = await axios.post('/wishAdd', {user_id: localStorage.user_id, plant_id: plant.id})
-    console.log(`add wishlist axios response ${response}`)
-    console.log(`payload plant.item ${plant.name}`)
+    let response = await axios.post('/wishAdd', 
+    {user_id: localStorage.user_id, plant_name: plant.name, plant_id: plant.id, 
+        moisture: plant.moisture, temperature_range: plant.temperature_range,
+        shade_tolerance: plant.shade_tolerance, image_url:plant.image_url
+    })
     dispatch({type: WISH_ADD_PLANT, payload: plant})
 }
 
+export const displayWishlistDb = () => async dispatch => {
+    let response = await axios.post('/wishlist', {user_id: localStorage.user_id})
+    console.log('display response')
+    console.log(response)
+    dispatch({ type: WISH_DISPLAY_PLANT, payload: response.data});
+}
+
+export const removeFromWishlistDb = (plant) => async dispatch =>{
+    let plant_id = plant.item.id
+    console.log(plant_id)
+    let user_id = localStorage.user_id
+    let response = await axios.post('/wishRemove', {user_id:user_id, plant_id: plant_id})
+    console.log(`remove from wishlist action`)
+    console.log(plant)
+    console.log(response)
+    dispatch({type: WISH_REMOVE_PLANT, payload: response})
+}
 
