@@ -44,6 +44,15 @@ class Signup extends React.Component {
                             />
                         </fieldset>
                         <fieldset>
+                            <Label>Zipcode</Label>
+                            <Field
+                                name='zipcode'
+                                type='integer'
+                                component='input'
+                                autoComplete='none' 
+                            />
+                        </fieldset>
+                        <fieldset>
                             <Label>Password</Label>
                             <Field
                                 name='password'

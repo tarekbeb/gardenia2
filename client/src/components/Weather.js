@@ -32,7 +32,6 @@ class Weather extends React.Component {
         }
     }
 
-
     onZipHandler = (e) => {
         
         if(e.charCode === 13){

@@ -11,25 +11,18 @@ import {
     // Header,
     // Icon,
     Image,
+    Label,
     // List,
     // Menu,
     // Responsive,
     // Segment,
     // Sidebar,
     // Visibility,
-    Card,
+    Card
     // Search
   } from 'semantic-ui-react';
 
-
-
-// const initialState = { isLoading: false, results: [], value: '' }
-
-// const getWidth = () => {
-//     const isSSR = typeof window === 'undefined'
-  
-//     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
-//   }
+let sensorData = 'https://io.adafruit.com/api/feeds?x-aio-key=1de8b4e601e94f9a96f29c07626470c2';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -37,13 +30,53 @@ class Dashboard extends React.Component {
 
         this.state = {
             forecast: [],
-            tempMain: {}
+            tempMain: {},
+            sensor: 0
         }
     }
 
+    componentDidMount() {
+        setInterval(() => {
+            this.sensorUpdate()
+        }, 5000);
+    }
+
+    sensorUpdate() {
+        fetch(sensorData)
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            this.setState({
+                ...this.state,
+                sensor: data[0].last_value
+            })
+        })
+        .catch((error) => {
+            console.log(error('error', error))
+        })
+    }
+
+    // componentDidUpdate() {
+    //     fetch(sensorData)
+    //     .then((response) => {
+    //         return response.json()
+    //     })
+    //     .then((data) => {
+    //         this.setState({
+    //             ...this.state,
+    //             sensor: data[0].last_value
+    //         })
+    //     })
+    //     .catch((error) => {
+    //         console.log(error('error', error))
+    //     })
+    // }
+    
 
     render() {
-        
+        console.log(this.state.sensor)
+
         return (
             <>
                 <WeatherComponent />
@@ -66,7 +99,25 @@ class Dashboard extends React.Component {
           </Card.Description>
         </Card.Content>
         <Card.Content>
-          
+            <Card.Description>
+            Moisture:
+            { (this.state.sensor <= 15) &&
+            <Label circular color={'red'}>
+                {this.state.sensor}
+            </Label>
+            }
+            { (this.state.sensor <= 35 && this.state.sensor >= 16) &&
+            <Label circular color={'yellow'}>
+                {this.state.sensor}
+            </Label>
+            }
+            { (this.state.sensor <= 100 && this.state.sensor >= 36) &&
+            <Label circular color={'green'}>
+                {this.state.sensor}
+            </Label>
+            }
+
+            </Card.Description>
         </Card.Content>
         <Card.Content extra>
           <div className='ui two buttons'>
