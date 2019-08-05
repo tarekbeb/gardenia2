@@ -12,7 +12,7 @@
     "id" : 2,
     "name": "Basil",
     "moisture" : "Low",
-    "temperature": "60-100F",
+    "temperature_range": "60-100F",
     "shade_tolerance": "Full-sun, partial shade",
     "image_url" : "https://cdn.webvanta.com/000000/51/74/slider_detail/uploads/guide/1502982102-bc4f30bfe55b0045c/19587224_m.jpg"
   },
@@ -20,7 +20,7 @@
     "id" : 3,
     "name": "Tomato",
     "moisture" : "High",
-    "temperature": "70-90F",
+    "temperature_range": "70-90F",
     "shade_tolerance": "Full-sun",
     "image_url" : "https://cdn.webvanta.com/000000/51/74/slider_detail/uploads/guide/1502982102-bc4f30bfe55b0045c/19587224_m.jpg"
   }

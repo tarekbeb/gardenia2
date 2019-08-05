@@ -1,7 +1,7 @@
 import React from 'react';
 import jsonData from '../data/plants.json';
 import {connect} from 'react-redux';
-import {addToWishlistDb} from '../actions'
+import {addToWishlistDb, displayWishlistDb, removeFromWishlistDb} from '../actions'
 
 let jsonPlants = jsonData.plants
 class Wishlist extends React.Component {
@@ -13,31 +13,55 @@ class Wishlist extends React.Component {
         wishlist: []
       }
       this.addToWishlist = this.addToWishlist.bind(this)
+      this.displayWishlist = this.displayWishlist.bind(this)
+
     }
 
     addToWishlist(e){
         e.preventDefault();
-  console.log(`event happened ${e}`)
-  console.log(this.refs.plantNames.value)
-  let plants = this.state.plants;
-  let plantName = this.refs.plantNames.value
-  if (plantName !== ''){
-    for(let i=0; i<plants.length; i++){
-      let plant = plants[i];
-      if (plantName === plant.name){
-          this.props.addToWishlistDb(plant)
-          console.log(`added to wishlist db`)
+        console.log(`event happened ${e}`)
+        console.log(this.refs.plantNames.value)
+        let plants = this.state.plants;
+        let plantName = this.refs.plantNames.value
+        if (plantName !== ''){
+            for(let i=0; i<plants.length; i++){
+            let plant = plants[i];
+            if (plantName === plant.name){
+                this.props.addToWishlistDb(plant)
+        this.displayWishlist()
+        console.log(`added ${plant.name} to wishlist db`)
+        console.log(`added to wishlist db`)
         }
       }
     }
-    else{
-      console.log('fill blank')
-    }
+        else{
+        alert('fill in blanks')
+        }
   }     
 
+displayWishlist(){
+  this.props.displayWishlistDb()
+}
+
+removeFromWishlist(e, item){
+  e.preventDefault();
+  this.props.removeFromWishlistDb(item)
+}
+
+componentDidMount(){
+    this.displayWishlist()
+  }
+
+// componentDidUpdate(prevProps){
+//   if(this.props.dbWishlist !== prevProps.dbWishlist){
+//     this.addToWishlist();
+//   }
+// }
 
 render() {
-    console.log(`Global state wishlist: ${this.props.wishlist}`)
+<<<<<<< HEAD
+  console.log(this.props.wishlist)
+  console.log(this.props.dbWishlist)
     return (
         <div>
             <section>
@@ -61,13 +85,15 @@ render() {
             </section><hr/>
 
             <section className="section">
-            <h2>Collection</h2>
+            <h2>wishlist</h2>
             <ul>
-                <li>
-                  <button>
-                    Remove
-                  </button> 
-                </li>
+              {this.props.dbWishlist.map((item) => {
+                return <li key={item.id}> {item.plant_name}
+                  <button onClick={(e)=>{this.removeFromWishlist(e, {item})}}> Remove </button> 
+                  {/* <img src={item.image_url}/> */}
+              </li>
+              })}
+                
             </ul>
           </section>
         </div>
@@ -77,12 +103,15 @@ render() {
 let mapStateToProps = (state) => {
     return ({
       wishlist: state.wishlistReducer.wishlist, 
+      dbWishlist : state.wishlistReducer.dbWishlist
     })
   }
 
 let mapDispatchToProps = (dispatch) => {
     return {
-      addToWishlistDb : (plant) => dispatch(addToWishlistDb(plant))
+      addToWishlistDb : (plant) => dispatch(addToWishlistDb(plant)),
+      displayWishlistDb: () => dispatch(displayWishlistDb()),
+      removeFromWishlistDb: (plant) => dispatch(removeFromWishlistDb(plant))
     }
   }
 
