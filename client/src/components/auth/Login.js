@@ -2,13 +2,10 @@ import React from 'react';
 import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import * as actions from '../../actions';
+import { Grid, Form, Segment, Button, Header, Message, Icon} from 'semantic-ui-react';
 import '../login.css';
-import {
-    Button,
-    Label,
-    Form
-} from 'semantic-ui-react';
 
 
 class Signin extends React.Component {
@@ -23,32 +20,33 @@ class Signin extends React.Component {
 
         const { handleSubmit } = this.props;
         return (
-            <div id='grass' style={{textAlign: 'center', paddingTop: '30px'}}>
-                <div style={{display: 'inline-block'}}>
-                <Form onSubmit={handleSubmit(this.onSubmit)}>
-                    <fieldset>
-                        <Label>Email</Label>
-                        <Field
-                            name='email'
-                            type='text'
-                            component='input'
-                            autoComplete='none' 
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <Label>Password</Label>
-                        <Field
-                            name='password'
-                            type='password'
-                            component='input'
-                            autoComplete='none'
-                        />
-                    </fieldset>
-                    <div>{this.props.errorMessage}</div>
-                    <Button>Login</Button>
-                </Form>
-                </div>
-            </div>
+
+            <Grid textAlign="center" verticalAlign="middle" className="app">
+                <Grid.Column style={{maxWidth: 450}}>
+                    <Header as="h2" icon color="green" textAlign="center">
+                        <Icon name="lock" color="green"/>
+                        Login to Monitor Your Plants!
+                    </Header>
+
+                    <Form onSubmit={handleSubmit(this.onSubmit)} >
+                        <Segment>
+                            <Field name="email" component='input' placeholder="email address" type="text" placeholder='email' />
+
+                            <Field name="password" component='input' placeholder="password" type="password" placeholder='password' />
+                            <div>{this.props.errorMessage}</div>
+                            <Button color="green" fluid size="large">Submit</Button>
+
+                        </Segment>
+                    </Form>
+                        {this.props.errorMessage && (
+                            <Message error>
+                                <h3>Error</h3>
+                                {this.props.errorMessage}
+                            </Message>
+                        )}
+                        <Message> Don't have an account? <Link to="/signup" >Sign up</Link> </Message>
+                </Grid.Column>
+            </Grid>
         );
     }
 }

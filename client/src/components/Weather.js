@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Input, Image } from 'semantic-ui-react';
+import { Card, Input, Image, Label } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import addZipCode from '../actions/addZipCode';
 import addWeather from '../actions/addWeather';
@@ -77,6 +77,7 @@ class Weather extends React.Component {
             <>  
                 <Card className="segment centered" id="weather"> 
                     <Card.Content>
+                        <Label>What's the weather?</Label><br/>
                         {(Object.keys(this.props.weatherImage).length > 0) ? (<Image src={this.props.weatherImage}/>) : null }
                         <Card.Header>{this.props.forecast.description}</Card.Header>
                         {(Object.keys(this.props.weatherImage).length > 0) ? (<Card.Description>Low: {this.props.tempMain.temp_min} High: {this.props.tempMain.temp_max}</Card.Description>) : null }
