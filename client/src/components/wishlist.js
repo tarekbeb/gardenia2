@@ -59,7 +59,6 @@ componentDidMount(){
 // }
 
 render() {
-<<<<<<< HEAD
   console.log(this.props.wishlist)
   console.log(this.props.dbWishlist)
     return (

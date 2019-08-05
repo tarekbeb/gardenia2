@@ -55,25 +55,25 @@ class Search extends React.Component {
   }
 
 //<<<<<<< HEAD
-  removeFromCollection(e, plants){
-    e.preventDefault();
-    console.log(plants)
+//   removeFromCollection(e, plants){
+//     e.preventDefault();
+//     console.log(plants)
 
-    this.props.removeFromCollectionDb(plants)
-  //   let plantCollection = this.refs.plantCollection
-  //   let collection = this.props.collection.slice();
-  //   console.log(collection)
-  //   console.log(this.state.collection)
-  //   collection.splice(plantCollection.key, 1);
-  // this.setState({
-  //   collection: collection
-  // }, ()=>{
-  //   console.log(this.state.collection)
-  //   // console.log(plantCollection.name)
-  //   this.props.onremoveFromCollection(plantCollection)
-  //   console.log(this.props.collection)
-//   });
-}
+//     this.props.removeFromCollectionDb(plants)
+//   //   let plantCollection = this.refs.plantCollection
+//   //   let collection = this.props.collection.slice();
+//   //   console.log(collection)
+//   //   console.log(this.state.collection)
+//   //   collection.splice(plantCollection.key, 1);
+//   // this.setState({
+//   //   collection: collection
+//   // }, ()=>{
+//   //   console.log(this.state.collection)
+//   //   // console.log(plantCollection.name)
+//   //   this.props.onremoveFromCollection(plantCollection)
+//   //   console.log(this.props.collection)
+// //   });
+// }
 
 componentWillMount(){
   this.displayCollection();
@@ -138,13 +138,13 @@ componentWillMount(){
                 </li>
                 ))
 //=======
-                  item.plant.map(renderPlant => (
-                    <li key={renderPlant.plant_id}>{renderPlant.plant_id}
-                    <button onClick={(e)=> this.removeFromCollection(e, {renderPlant})}>
-                      Remove
-                    </button> 
-                  </li>
-                  ))
+                //   item.plant.map(renderPlant => (
+                //     <li key={renderPlant.plant_id}>{renderPlant.plant_id}
+                //     <button onClick={(e)=> this.removeFromCollection(e, {renderPlant})}>
+                //       Remove
+                //     </button> 
+                //   </li>
+                //   ))
               ))}
             </ul>
           </section>
