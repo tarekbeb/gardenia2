@@ -17,8 +17,10 @@
 
 import _ from "lodash";
 import React, { Component } from "react";
+import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import myImage from './images/mainLogo.png';
+import "../layout/header.css";
 
 import {
   Container,
@@ -28,6 +30,7 @@ import {
   Sidebar,
   Responsive
 } from "semantic-ui-react";
+
 
 const NavBarMobile = ({
     children,
@@ -68,43 +71,63 @@ const NavBarMobile = ({
     </Sidebar.Pushable>
     );
 
-const NavBarDesktop = () => (
+const NavBarDesktop = (props) => {
+    return (
     <Menu fixed="top" inverted>
-        <Menu.Item>
-            <Image as="a" href="/" size="mini" style={{paddingRight: "1em"}} src={myImage} />
-            <a href='/'>Gardenia</a>
+        <Menu.Item as={Link} to='/'>
+            <Image size="mini" style={{paddingRight: "1em"}} src={myImage} />
+            Gardenia
         </Menu.Item>
         <Menu.Item as={Link} to='/dashboard'>
-            Dashboard
+            <font color="white">Dashboard</font>
         </Menu.Item>
         <Menu.Menu position="right">
-            <Menu.Item as={Link} to='/signin'>
-                Login
-            </Menu.Item>
-            <Menu.Item as={Link} to='/signout'>
-                Signout
-            </Menu.Item>
-            <Menu.Item as={Link} to='/signup'>
-                Sign Up
-            </Menu.Item>
+            { (props.desktopProps.isLoggedIn) &&
+                <Menu.Item >
+                    Hello, {props.desktopProps.username}
+                </Menu.Item>
+            }
+            { (Object.keys(props.desktopProps.weatherImage).length > 0) &&
+                <Menu.Item >
+                        <Image size='mini' src={props.desktopProps.weatherImage}/>
+                        {props.desktopProps.tempMain.temp + 'F'}
+                </Menu.Item>
+            }
+            { (!props.desktopProps.isLoggedIn) &&
+                <Menu.Item as={Link} to='/signin' >
+                    Login
+                </Menu.Item>
+            }
+            { (props.desktopProps.isLoggedIn) &&
+                <Menu.Item as={Link} to='/signout' >
+                    Signout
+                </Menu.Item>
+            }
+            { (!props.desktopProps.isLoggedIn) &&
+                <Menu.Item as={Link} to='/signup' >
+                    Sign Up
+                </Menu.Item>
+            }
             <Menu.Item as={Link} to='/search'>
-                Search
-            </Menu.Item>
-            <Menu.Item as={Link} to='/wishlist'>
-                Wishlist
+                <font color="white">Search</font>
             </Menu.Item>
         </Menu.Menu>
     </Menu>
-);
+    )
+}
 
 const NavBarChildren = ({ children }) => (
     <Container fluid style={{ marginTop: "5em" }}>{children}</Container>
 );
 
 class NavBar extends Component {
-    state = {
-        visible: false
+    constructor(props) {
+        super(props);
+    
+    this.state = {
+        visible: false,
     };
+}
 
     handlePusher = () => {
         const { visible } = this.state;
@@ -132,7 +155,7 @@ class NavBar extends Component {
                 </NavBarMobile>
             </Responsive>
             <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-                <NavBarDesktop />
+                <NavBarDesktop desktopProps={this.props.stateProps}/>
                 <NavBarChildren>{children}</NavBarChildren>
             </Responsive>
         </div>
@@ -141,10 +164,24 @@ class NavBar extends Component {
 }
 
 const App = (props) => (
-    <NavBar>
+    <NavBar stateProps={props}>
         {props.children}
     </NavBar>
 );
 
-export default App;
+let mapStateToProps = (state) => {
+    return ({
+        forecast: state.weatherReducer.forecast,
+        tempMain: state.weatherReducer.tempMain,
+        zipcode: state.weatherReducer.zipcode,
+        weatherImage: state.weatherReducer.weatherImage,
+        isLoggedIn: state.auth.isLoggedIn,
+        username: state.auth.username
+    })
+}
+
+
+export default connect (
+    mapStateToProps
+)(App);
 

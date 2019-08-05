@@ -3,18 +3,16 @@ import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import '../login.css';
+import {
+    Button,
+    Label
+} from 'semantic-ui-react';
 
 
 class Signup extends React.Component {
 
-    constructor(props) {
-        super(props);
-        
-    }
-
     onSubmit = (formProps) => {
-        console.log(formProps)
-
         this.props.signup(formProps, () => {
             this.props.history.push('/dashboard')
         })
@@ -24,37 +22,41 @@ class Signup extends React.Component {
 
         const { handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-                <fieldset>
-                    <label>Username</label>
-                    <Field
-                        name='username'
-                        type='text'
-                        component='input'
-                        autoComplete='none' 
-                    />
-                </fieldset>
-                <fieldset>
-                    <label>Email</label>
-                    <Field
-                        name='email'
-                        type='text'
-                        component='input'
-                        autoComplete='none' 
-                    />
-                </fieldset>
-                <fieldset>
-                    <label>Password</label>
-                    <Field
-                        name='password'
-                        type='password'
-                        component='input'
-                        autoComplete='none'
-                    />
-                </fieldset>
-                <div>{this.props.errorMessage}</div>
-                <button>Sign Up</button>
-            </form>
+            <div id='grass' style={{textAlign: 'center', paddingTop: '30px'}}>
+                <div style={{display: 'inline-block'}}>
+                    <form onSubmit={handleSubmit(this.onSubmit)}>
+                        <fieldset>
+                            <Label>Username</Label>
+                            <Field
+                                name='username'
+                                type='text'
+                                component='input'
+                                autoComplete='none' 
+                            />
+                        </fieldset>
+                        <fieldset>
+                            <Label>Email</Label>
+                            <Field
+                                name='email'
+                                type='text'
+                                component='input'
+                                autoComplete='none' 
+                            />
+                        </fieldset>
+                        <fieldset>
+                            <Label>Password</Label>
+                            <Field
+                                name='password'
+                                type='password'
+                                component='input'
+                                autoComplete='none'
+                            />
+                        </fieldset>
+                        <div>{this.props.errorMessage}</div>
+                        <Button>Sign Up</Button>
+                    </form>
+                </div>
+            </div>
         );
     }
 }

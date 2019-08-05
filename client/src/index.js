@@ -10,7 +10,7 @@ import Dashboard from './components/Dashboard';
 import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
 import Signup from './components/auth/Signup';
-import Searches from './components/Search';
+import Login from './components/auth/Login';
 import reducers from './reducers';
 import Header from './layout/Header';
 import reduxThunk from 'redux-thunk';
@@ -36,6 +36,7 @@ ReactDOM.render(
                     <Route path='/signup' component={Signup}/>
                     <Route path='/signout' component={Signout}/>
                     <Route path='/wishlist' component={Wishlist}/>
+                    <Route path='/login' component={Login}/>
                 </Switch>
             </Header>
         </BrowserRouter>

@@ -1,6 +1,7 @@
 //authentication action types
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';
+export const AUTH_SIGNOUT = 'auth_signout';
 
 //collection action types
 export const COL_ADD_PLANT = 'col_add_plant';

@@ -1,8 +1,8 @@
 let addZipCode = (item) => {
-  return ({
-      type: 'addZipCode',
-      zipCode: item
-  })
+    return ({
+        type: 'addZipCode',
+        zipcode: item.zipcode
+    })
 }
 
 export default addZipCode;

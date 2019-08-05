@@ -9,6 +9,7 @@ class Wishlist extends React.Component {
       super(props);
       this.state = {
         plants: jsonPlants,
+        plant: [],
         wishlist: []
       }
       this.addToWishlist = this.addToWishlist.bind(this)
@@ -16,25 +17,26 @@ class Wishlist extends React.Component {
 
     }
 
-addToWishlist(e){
-  // e.preventDefault()
-  console.log(`event happened ${e}`)
-  let plants = this.state.plants;
-  let plantName = this.refs.plantName.value
-  console.log(plantName)
-  if (plantName !== ''){
-    for(let i=0; i<plants.length; i++){
-      let plant = plants[i];
-      if (plantName === plant.name){
-          this.props.addToWishlistDb(plant)
-          this.displayWishlist()
-          console.log(`added ${plant.name} to wishlist db`)
+    addToWishlist(e){
+        e.preventDefault();
+        console.log(`event happened ${e}`)
+        console.log(this.refs.plantNames.value)
+        let plants = this.state.plants;
+        let plantName = this.refs.plantNames.value
+        if (plantName !== ''){
+            for(let i=0; i<plants.length; i++){
+            let plant = plants[i];
+            if (plantName === plant.name){
+                this.props.addToWishlistDb(plant)
+        this.displayWishlist()
+        console.log(`added ${plant.name} to wishlist db`)
+        console.log(`added to wishlist db`)
         }
       }
     }
-    else{
-      console.log('fill blank')
-    }
+        else{
+        alert('fill in blanks')
+        }
   }     
 
 displayWishlist(){
@@ -57,6 +59,7 @@ componentDidMount(){
 // }
 
 render() {
+<<<<<<< HEAD
   console.log(this.props.wishlist)
   console.log(this.props.dbWishlist)
     return (
@@ -73,7 +76,7 @@ render() {
                 type="text"
                 id="addInput"
                 placeholder="Plant Name"
-                ref="plantName"
+                ref="plantNames"
               />
               <button type="submit">
                 Add Item

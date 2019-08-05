@@ -1,0 +1,28 @@
+body{
+    /* background-image: url("http://i.imgur.com/6GvZ4Ur.jpg"); */
+    /* background: rgba(1, 103, 1, 0.55); */
+    /* background-image: url("https://i.pinimg.com/originals/d1/93/02/d193028141f8f76d5e125c4e2582f12a.png");
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+.ui.card,
+.ui.cards>.card{
+    /* background: linear-gradient(#005b4f, #00897b); */
+    background: -webkit-linear-gradient(70deg, #00897b 40%, #005b4f 40%);
+    box-shadow: 5px 10px;
+
+}
+
+#cardback{
+    width: 75%;
+    margin: auto;
+    margin-top: 30px;
+    background: linear-gradient(#029191b1, rgba(17, 175, 160, 0.831));
+}
+
+.ui.fluid.container{
+    background: #045b5b;
+    margin-bottom: 80px;
+}
+
