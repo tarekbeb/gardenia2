@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import '../components/homepage.css';
 import {
   Button,
   Container,
@@ -10,7 +11,8 @@ import {
   Segment,
   Sidebar,
   Visibility,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
+// import { generateKeyPair } from 'crypto';
 
 const getWidth = () => {
   const isSSR = typeof window === 'undefined'
@@ -19,33 +21,37 @@ const getWidth = () => {
 }
 
 const HomepageHeading = ({ mobile }) => (
-  <Container text>
-    <Header
-      as='h1'
-      content='Gardenia'
-      inverted
-      style={{
-        fontSize: mobile ? '2em' : '4em',
-        fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '1.5em',
-      }}
-    />
-    <Header
-      as='h2'
-      content="Always wondering if your plants need water? Fret no more! Let them tell you when they are thursty..."
-      inverted
-      style={{
-        fontSize: mobile ? '1.5em' : '1.7em',
-        fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em',
-      }}
-    />
-    <Button href="/dashboard" primary size='huge' style={{backgroundColor: '#2ec86f'}}>
-      Try it out!
-      <Icon name='right arrow' />
-    </Button>
-  </Container>
+    <div id='test'>
+        <Container text>
+            <Header
+            as='h1'
+            content='Gardenia'
+            inverted
+            style={{
+                fontSize: mobile ? '2em' : '4em',
+                fontWeight: 'normal',
+                marginBottom: 0,
+                marginTop: mobile ? '1.5em' : '1.5em',
+                color: "black"
+            }}
+            />
+            <Header
+            as='h2'
+            content="Always wondering if your plants need water? Fret no more! Let them tell you when they are thursty..."
+            inverted
+            style={{
+                fontSize: mobile ? '1.5em' : '1.7em',
+                fontWeight: 'normal',
+                marginTop: mobile ? '0.5em' : '1.5em',
+                color: "black"
+            }}
+            />
+            <Button href="/dashboard" primary size='huge' style={{backgroundColor: '#2ec86f'}}>
+            Try it out!
+            <Icon name='right arrow' />
+            </Button>
+        </Container>
+    </div>
 )
 
 HomepageHeading.propTypes = {
@@ -60,7 +66,7 @@ class DesktopContainer extends Component {
 
   render() {
     const { children } = this.props
-    const { fixed } = this.state
+    // const { fixed } = this.state
 
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>

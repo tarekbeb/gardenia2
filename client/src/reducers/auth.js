@@ -3,7 +3,8 @@ import { AUTH_USER, AUTH_ERROR, AUTH_SIGNOUT } from '../actions/types';
 const Initial_State = {
     authenticated: "",
     errorMessage: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    username: ''
 }
 
 let auth = (state = Initial_State, action) => {
@@ -14,19 +15,22 @@ let auth = (state = Initial_State, action) => {
             return {
                 ...state,
                 authenticated: action.payload,
-                isLoggedIn: action.isLoggedIn
+                isLoggedIn: action.isLoggedIn,
+                username: action.username
             }
             
         case AUTH_ERROR:
             return  {
                 ...state,
                 errorMessage: action.payload,
-                isLoggedIn: action.isLoggedIn
+                isLoggedIn: action.isLoggedIn,
+                username: action.username
             }
         case AUTH_SIGNOUT:
             return {
                 ...state,
-                isLoggedIn: action.isLoggedIn
+                isLoggedIn: action.isLoggedIn,
+                username: action.username
             }
         default:
             return state;

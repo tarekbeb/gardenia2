@@ -73,7 +73,7 @@ class Search extends React.Component {
   render() {
       console.log('renderrr')
       console.log(this.props.collection)
-      if(this.props.collection.length == 0){
+      if(this.props.collection.length === 0){
         this.displayCollection()
       }
 

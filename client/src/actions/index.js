@@ -9,25 +9,22 @@ let decodeToken = (token)=>{
     let token_payload = split_token[1];
     let decoded_token_string = atob(token_payload);
     let decoded_token = JSON.parse(decoded_token_string)
-    localStorage.setItem('user_id', decoded_token.sub);
+    // localStorage.setItem('user_id', decoded_token.sub);
     localStorage.setItem('user_name', decoded_token.user_name)
-    console.log(`local storage user ID: ${localStorage.user_id}`)
-    console.log(`local Storage user name: ${localStorage.user_name}`)
+    // console.log(`local storage user ID: ${localStorage.user_id}`)
+    // console.log(`local Storage user name: ${localStorage.user_name}`)
 }
 
 export const signup = (formProps, callback) => async dispatch =>{
 
     try{
         let response = await axios.post('/signup', formProps);
-
-        console.log(response)
+        decodeToken(response.data.token)
 
         //dispatch
 
-        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true});
-
+        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: formProps.username});
         localStorage.setItem('token', response.data.token);
-        decodeToken(response.data.token)
         callback();
     }
     catch(e){
@@ -39,11 +36,14 @@ export const signin = (formProps, callback) => async dispatch => {
 
     try {
         let response = await axios.post('/signin', formProps);
+        decodeToken(response.data.token)
+
+        console.log('signin form props')
+        console.log(localStorage.user_name)
         
-        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true});
+        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: localStorage.user_name});
 
         localStorage.setItem('token', response.data.token);
-        decodeToken(response.data.token)
         callback();
     }
     catch(e){
@@ -56,7 +56,7 @@ export const signout = () => {
 
     localStorage.clear()
     return {
-        type: AUTH_USER,
+        type: AUTH_SIGNOUT,
         payload: '',
         isLoggedIn: false
     }

@@ -5,19 +5,14 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 
-
 class Signin extends React.Component {
 
-
     onSubmit = (formProps) => {
-        console.log(formProps)
-
         this.props.signin(formProps, () => {
             this.props.history.push('/dashboard')
         })
     }
     
-
     render() {
 
         const { handleSubmit } = this.props;

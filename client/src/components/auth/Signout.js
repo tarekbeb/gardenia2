@@ -4,10 +4,6 @@ import * as actions from '../../actions';
 
 
 class Signout extends React.Component {
-    constructor(props) {
-        super(props);
-        
-    }
 
     componentDidMount() {
         this.props.signout();

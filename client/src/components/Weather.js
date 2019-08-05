@@ -53,7 +53,7 @@ class Weather extends React.Component {
                         tempMain: data.main,
                         name: data.name
                     })
-                    let image = ((this.state.forecast.main == 'Clouds') ? {cloud} : (this.state.forecast.main == 'Haze' || this.state.forecast.main == 'Clear') ? {sunny} : (this.state.forecast.main == 'Rain') ? {rain} : null )
+                    let image = ((this.state.forecast.main === 'Clouds') ? {cloud} : (this.state.forecast.main === 'Haze' || this.state.forecast.main === 'Clear') ? {sunny} : (this.state.forecast.main === 'Rain') ? {rain} : null )
                     this.props.onaddWeather({
                         ...this.state,
                         forecast: data.weather[0],

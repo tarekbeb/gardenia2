@@ -72,7 +72,6 @@ const NavBarMobile = ({
     );
 
 const NavBarDesktop = (props) => {
-    console.log(props)
     return (
     <Menu fixed="top" inverted>
         <Menu.Item as={Link} to='/'>
@@ -85,7 +84,7 @@ const NavBarDesktop = (props) => {
         <Menu.Menu position="right">
             { (props.desktopProps.isLoggedIn) &&
                 <Menu.Item >
-                    Hello, {localStorage.user_name}
+                    Hello, {props.desktopProps.username}
                 </Menu.Item>
             }
             { (Object.keys(props.desktopProps.weatherImage).length > 0) &&
@@ -176,7 +175,8 @@ let mapStateToProps = (state) => {
         tempMain: state.weatherReducer.tempMain,
         zipcode: state.weatherReducer.zipcode,
         weatherImage: state.weatherReducer.weatherImage,
-        isLoggedIn: state.auth.isLoggedIn
+        isLoggedIn: state.auth.isLoggedIn,
+        username: state.auth.username
     })
 }
 

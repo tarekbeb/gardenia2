@@ -8,8 +8,6 @@ import * as actions from '../../actions';
 class Signup extends React.Component {
 
     onSubmit = (formProps) => {
-        console.log(formProps)
-
         this.props.signup(formProps, () => {
             this.props.history.push('/dashboard')
         })
