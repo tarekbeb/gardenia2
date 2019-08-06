@@ -17,7 +17,6 @@ router.post('/colAdd', (req, res) => {
     let image_url = req.body.image_url;
     let in_collection = true;
     let in_wishlist = false;
-    console.log(`user ID ${user_id} plantId ${plant_id}`)
     //check for duplication
     db.plant_collection.findAll({ where: { plant_id: plant_id, user_id: user_id }})
     .then((result) => {
@@ -38,7 +37,6 @@ router.post('/colAdd', (req, res) => {
 
 router.post("/collection", (req, res) => {
     let user_id = req.body.user_id;
-    console.log(user_id)
     db.plant_collection.findAll({where: {user_id : user_id}})
     .then((plants) => {
       res.send(plants)
@@ -48,7 +46,6 @@ router.post("/collection", (req, res) => {
 router.post('/colRemove', (req, res) => {
     let id = req.body.plant_id;
     let user_id = req.body.user_id;
-    console.log(`id to be removed ${id}`)
     db.plant_collection.destroy({where : {user_id: user_id, id: id}})
     res.send(`deleted from db`)
 })

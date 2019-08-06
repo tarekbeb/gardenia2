@@ -9,7 +9,6 @@ const Initial_State = {
 }
 
 let auth = (state = Initial_State, action) => {
-    console.log(action.payload)
     switch(action.type){
         case AUTH_USER:
 

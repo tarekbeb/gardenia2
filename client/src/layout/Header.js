@@ -1,20 +1,3 @@
-// OLD HEADER
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-
-// export default () => {
-//     return (
-//         <>
-//             <Link to='/'>Home | </Link> 
-//             <Link to='/signin'>Signin | </Link>     
-//             <Link to='/signout'>Signout | </Link>   
-//             <Link to='/signup'>Signup | </Link>     
-//             <Link to='/dashboard'>Dashboard | </Link>   
-//             <Link to='/search'> Search</Link>
-//         </>
-//     )
-// }
-
 import _ from "lodash";
 import React, { Component } from "react";
 import {connect} from 'react-redux';
@@ -28,7 +11,8 @@ import {
   Image,
   Menu,
   Sidebar,
-  Responsive
+  Responsive,
+  Input
 } from "semantic-ui-react";
 
 
@@ -72,8 +56,41 @@ const NavBarMobile = ({
     );
 
 const NavBarDesktop = (props) => {
-    console.log('props')
-    console.log(props)
+    onZipHandler = (e) => {
+        
+        if(e.charCode === 13){
+            this.props.onaddZipCode({
+                zipcode: e.target.value        
+            })
+            this.setState({
+                zipcode: e.target.value,
+                error: ''
+            }, () => {
+                fetch(apiAddress + this.state.zipcode + imperial + apiKey)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    this.setState({
+                        forecast: data.weather[0],
+                        tempMain: data.main,
+                        name: data.name
+                    })
+                    let image = ((this.state.forecast.main === 'Clouds') ? {cloud} : (this.state.forecast.main === 'Haze' || this.state.forecast.main === 'Clear') ? {sunny} : (this.state.forecast.main === 'Rain') ? {rain} : null )
+                    this.props.onaddWeather({
+                        ...this.state,
+                        forecast: data.weather[0],
+                        tempMain: data.main,
+                        weatherImage: Object.values(image)
+                    })
+                })
+                .catch(err => {
+                    this.setState({
+                        error: 'Not a valid input'
+                    })
+                })
+            })
+        }}}
     return (
     <Menu fixed="top" inverted>
         <Menu.Item as={Link} to='/'>
@@ -84,6 +101,7 @@ const NavBarDesktop = (props) => {
             <font color="white">Dashboard</font>
         </Menu.Item>
         <Menu.Menu position="right">
+        <Input placeholder='Zip Code' onKeyPress={onZipHandler}/>
             { (props.desktopProps.isLoggedIn) &&
                 <Menu.Item >
                     Hello, {props.desktopProps.username}
@@ -116,7 +134,7 @@ const NavBarDesktop = (props) => {
         </Menu.Menu>
     </Menu>
     )
-}
+
 
 const NavBarChildren = ({ children }) => (
     <Container fluid style={{ marginTop: "5em" }}>{children}</Container>

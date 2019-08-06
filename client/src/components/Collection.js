@@ -46,7 +46,6 @@ class Collection extends React.Component {
         e.preventDefault();
         let plants = this.state.plants;
         let plantName = this.plantNameSearchTerm.value;
-        console.log(plantName)
         if (plantName !== ''){
             for(let i=0; i<plants.length; i++){
             let plant = plants[i];
@@ -66,15 +65,6 @@ class Collection extends React.Component {
                   collection: this.state.collection.concat(plant)
                 })
               })
-              
-
-              console.log('vero: after call')     
-              
-
-              
-              
-              console.log(`added ${plantName} to collection db`)
-              console.log(`added to collection db`)
         }
       }
     }
@@ -89,7 +79,6 @@ displayCollection(){
 
 async removeFromCollection(e, plants){
     e.preventDefault();
-    console.log(`remove plant ${plants}`)
 
 
     await this.props.removeFromCollectionDb(plants)
@@ -105,15 +94,7 @@ componentDidMount(){
     this.displayCollection()
   }
 
-// componentDidUpdate(prevProps){
-//   if(this.props.dbWishlist !== prevProps.dbWishlist){
-//     this.addToWishlist();
-//   }
-// }
-
 render() {
-  console.log('collection DB props')
-  console.log(this.props.dbCollection)
     return (
         <>
         <div className='fluid-container'>

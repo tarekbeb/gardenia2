@@ -41,7 +41,6 @@ export const signin = (formProps, callback) => async dispatch => {
     try {
         let response = await axios.post('/signin', formProps);
         decodeToken(response.data.token);
-        console.log(localStorage.zipcode)
         // console.log('signin form props')
         // console.log(formProps)
         
@@ -75,28 +74,18 @@ export const addToCollectionDb = (plant) => async dispatch =>{
     })
 
     dispatch({type: COL_ADD_PLANT, payload: plant})
-
-    console.log('vero: addToCollection')
 }
 
 export const displayCollectionDb = () => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
-    console.log('response')
-    console.log(response.data)
     dispatch({type: COL_DISPLAY_PLANT, payload: response.data});
-    
-    console.log('vero: displayCollectionDb')
 }
 
 export const removeFromCollectionDb = (plant) => async dispatch => {
     
     let plant_id = plant.item.id
-    console.log(plant_id)
     let user_id = localStorage.user_id
     let response = await axios.post('/colRemove', {user_id:user_id, plant_id: plant_id})
-    console.log(`remove from wishlist action`)
-    console.log(plant)
-    console.log(response)
     dispatch({type: COL_REMOVE_PLANT, payload: plant})
 }
 
@@ -111,19 +100,13 @@ export const addToWishlistDb = (plant) => async dispatch => {
 
 export const displayWishlistDb = () => async dispatch => {
     let response = await axios.post('/wishlist', {user_id: localStorage.user_id})
-    console.log('display response')
-    console.log(response)
     dispatch({ type: WISH_DISPLAY_PLANT, payload: response.data});
 }
 
 export const removeFromWishlistDb = (plant) => async dispatch =>{
     let plant_id = plant.item.id
-    //console.log(plant_id)
     let user_id = localStorage.user_id
     let response = await axios.post('/wishRemove', {user_id:user_id, plant_id: plant_id})
-    //console.log(`remove from wishlist action`)
-    console.log(`sending this to remove ${plant}`)
-    //console.log("remove response: ", response)
     dispatch({type: WISH_REMOVE_PLANT, payload: plant})
 }
 
