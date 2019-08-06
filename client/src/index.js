@@ -15,7 +15,7 @@ import reducers from './reducers';
 import Header from './layout/Header';
 import reduxThunk from 'redux-thunk';
 import Search from './components/Search';
-import Wishlist from './components/Wishlist';
+// import Wishlist from './components/Wishlist';
 import Collection from './components/Collection';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

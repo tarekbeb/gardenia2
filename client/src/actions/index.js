@@ -44,7 +44,7 @@ export const signin = (formProps, callback) => async dispatch => {
         // console.log('signin form props')
         // console.log(formProps)
         
-        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: localStorage.user_name, zipcode: formProps.zipcode});
+        dispatch({type: AUTH_USER, payload: {token :response.data.token, isLoggedIn: true, username: localStorage.user_name, zipcode: formProps.zipcode}});
 
         localStorage.setItem('token', response.data.token);
         callback();

@@ -42,14 +42,19 @@ class Collection extends React.Component {
 
     addToCollection(e){
         e.preventDefault();
-        console.log(this.refs.plantName)
         let plants = this.state.plants;
         let plantName = this.plantNameSearchTerm.value;
         if (plantName !== ''){
             for(let i=0; i<plants.length; i++){
             let plant = plants[i];
             if (plantName === plant.name){
-                this.props.addToCollectionDb(plant)
+                let newCollection = this.state.collection.concat(plant)
+                this.setState({
+                    collection: newCollection
+                }, () => {
+                    this.props.addToCollectionDb(plant)
+                })
+                
         this.displayCollection()
         console.log(`added ${plantName} to collection db`)
         console.log(`added to collection db`)
@@ -72,7 +77,7 @@ removeFromCollection(e, plants){
     this.props.removeFromCollectionDb(plants)
 }
 
-componentDidMount(){
+componentWillMount(){
     this.displayCollection()
   }
 
@@ -93,13 +98,16 @@ render() {
           <div className="ui grid center aligned">
               <Header>Search Plants</Header>
           <Form onSubmit={this.addToCollection}>
-              <Input
+          <div className="ui icon input">
+              <input
                 type="text"
                 style={{paddingRight: '20px'}}
                 id="addInput"
                 placeholder="Plant Name"
                 ref={ input => this.plantNameSearchTerm = input}
               />
+              <i aria-hidden="true" className="search icon"></i>
+              </div>
               <Button type="submit">
                 Add To Collection
               </Button>

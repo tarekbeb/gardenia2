@@ -6,6 +6,7 @@ const Initial_State = {
 }
 
 let collectionReducer = (state = Initial_State, action) => {
+    console.log('collection', action)
     switch (action.type){
         case COL_ADD_PLANT:
             return {
