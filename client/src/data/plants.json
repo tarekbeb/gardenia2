@@ -14,7 +14,7 @@
     "moisture" : "Low",
     "temperature_range": "60-100F",
     "shade_tolerance": "Full-sun, partial shade",
-    "image_url" : "https://cdn.webvanta.com/000000/51/74/slider_detail/uploads/guide/1502982102-bc4f30bfe55b0045c/19587224_m.jpg"
+    "image_url" : "https://cdn12.picryl.com/photo/2016/12/31/basil-plant-garden-nature-landscapes-2809f6-1024.jpg"
   },
   {
     "id" : 3,
@@ -22,6 +22,14 @@
     "moisture" : "High",
     "temperature_range": "70-90F",
     "shade_tolerance": "Full-sun",
-    "image_url" : "https://cdn.webvanta.com/000000/51/74/slider_detail/uploads/guide/1502982102-bc4f30bfe55b0045c/19587224_m.jpg"
+    "image_url" : "https://cdn.pixabay.com/photo/2019/05/31/11/34/tomato-4241980_960_720.jpg"
+  },
+  {
+    "id" : 4,
+    "name": "Cactus",
+    "moisture" : "Low",
+    "temperature_range": "70-95F",
+    "shade_tolerance": "Full-sun",
+    "image_url": "https://www.publicdomainpictures.net/pictures/270000/nahled/cactus-desert-plant-15317577593T8.jpg"
   }
 ]}
