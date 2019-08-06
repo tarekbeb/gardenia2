@@ -42,7 +42,7 @@ class Collection extends React.Component {
       this.removeFromCollection = this.removeFromCollection.bind(this)
     }
 
-    async addToCollection(e){
+    addToCollection(e){
         e.preventDefault();
         let plants = this.state.plants;
         let plantName = this.plantNameSearchTerm.value;
@@ -52,14 +52,26 @@ class Collection extends React.Component {
             let plant = plants[i];
             if (plantName === plant.name){
 
-              await this.props.addToCollectionDb(plant)
-              this.displayCollection()
+              let p = new Promise((resolve, reject)=>{
 
-              console.log('vero: after call')
+                resolve(this.props.addToCollectionDb(plant)) 
+              });
 
-              this.setState({
-                collection: this.state.collection.concat(plant)
+
+              p.then(()=>{
+                this.displayCollection()
               })
+              p.then(()=>{
+                this.setState({
+                  collection: this.state.collection.concat(plant)
+                })
+              })
+              
+
+              console.log('vero: after call')     
+              
+
+              
               
               console.log(`added ${plantName} to collection db`)
               console.log(`added to collection db`)

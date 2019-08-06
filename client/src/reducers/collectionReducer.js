@@ -8,6 +8,7 @@ const Initial_State = {
 let collectionReducer = (state = Initial_State, action) => {
     switch (action.type){
         case COL_ADD_PLANT:
+            console.log('vero: add plant')
             return {
                 ...state,
                 collection: state.collection.concat(action.payload)
@@ -24,6 +25,7 @@ let collectionReducer = (state = Initial_State, action) => {
             //     dbCollection : state.dbCollection.concat(action.payload)
             // }
 
+            console.log('vero: display plant')
             return {
                 ...state,
                 dbCollection : action.payload
