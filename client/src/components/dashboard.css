@@ -10,7 +10,7 @@
 #cardback{
     width: 75%;
     margin: auto;
-    margin-top: 80px;
+    margin-top: 40px;
     background: linear-gradient(#029191b1, rgba(17, 175, 160, 0.831));
     border-radius: 15px;
 }
@@ -32,7 +32,7 @@
     width: 60%;
     margin: auto;
     border-radius: 15px;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 #searchbar2{

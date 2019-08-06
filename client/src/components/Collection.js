@@ -134,29 +134,30 @@ sensorUpdate() {
 // }
 
 render() {
-  console.log('collection DB props')
-  console.log(this.state.sensor)
     return (
         <>
         <div className='fluid-container'>
         <WeatherComponent />
         <div id="searchbar">
           <div className="ui grid center aligned">
-              <Header>Search Plants</Header>
+              <Header as="h1">Search Plants</Header><br/>
           <Form onSubmit={this.addToCollection}>
-              <input
-                type="text"
-                style={{paddingRight: '20px'}}
-                id="addInput"
-                placeholder="Plant Name"
-                ref={ input => this.plantNameSearchTerm = input}
-              />
-              <Button type="submit">
-                Add To Collection
-              </Button>
-            </Form>
+            <div class="ui icon input">
+                <input
+                    type="text"
+                    style={{paddingRight: '20px'}}
+                    id="addInput"
+                    placeholder="Plant Name"
+                    ref={ input => this.plantNameSearchTerm = input}
+                />
+                <i aria-hidden="true" class="search icon"></i>
             </div>
-            </div>
+            <Button type="submit">
+            Add To Collection
+            </Button>
+        </Form>
+        </div>
+        </div>
 
       <Card.Group className="segment centered" id="cardback">
           {this.props.dbCollection.map((item) => {
