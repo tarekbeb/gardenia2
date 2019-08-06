@@ -1,5 +1,6 @@
 import React from 'react';
 import jsonData from '../data/plants.json';
+import WeatherComponent from './Weather';
 import {connect} from 'react-redux';
 import {addToCollectionDb, displayCollectionDb, removeFromCollectionDb} from '../actions/';
 import {
@@ -33,31 +34,35 @@ class Collection extends React.Component {
       this.state = {
         plants: jsonPlants,
         plant: [],
-        collection: []
+        collection: [],
+        remove: {}
       }
       this.addToCollection = this.addToCollection.bind(this)
       this.displayCollection = this.displayCollection.bind(this)
       this.removeFromCollection = this.removeFromCollection.bind(this)
     }
 
-    addToCollection(e){
+    async addToCollection(e){
         e.preventDefault();
         let plants = this.state.plants;
         let plantName = this.plantNameSearchTerm.value;
+        console.log(plantName)
         if (plantName !== ''){
             for(let i=0; i<plants.length; i++){
             let plant = plants[i];
             if (plantName === plant.name){
-                let newCollection = this.state.collection.concat(plant)
-                this.setState({
-                    collection: newCollection
-                }, () => {
-                    this.props.addToCollectionDb(plant)
-                })
-                
-        this.displayCollection()
-        console.log(`added ${plantName} to collection db`)
-        console.log(`added to collection db`)
+
+              await this.props.addToCollectionDb(plant)
+              this.displayCollection()
+
+              console.log('vero: after call')
+
+              this.setState({
+                collection: this.state.collection.concat(plant)
+              })
+              
+              console.log(`added ${plantName} to collection db`)
+              console.log(`added to collection db`)
         }
       }
     }
@@ -70,14 +75,21 @@ displayCollection(){
   this.props.displayCollectionDb()
 }
 
-removeFromCollection(e, plants){
+async removeFromCollection(e, plants){
     e.preventDefault();
-    console.log(plants)
+    console.log(`remove plant ${plants}`)
 
-    this.props.removeFromCollectionDb(plants)
+
+    await this.props.removeFromCollectionDb(plants)
+
+    this.setState({
+      remove: plants 
+    })
+
+    
 }
 
-componentWillMount(){
+componentDidMount(){
     this.displayCollection()
   }
 
@@ -93,12 +105,11 @@ render() {
     return (
         <>
         <div className='fluid-container'>
-
+        <WeatherComponent />
         <div id="searchbar">
           <div className="ui grid center aligned">
               <Header>Search Plants</Header>
           <Form onSubmit={this.addToCollection}>
-          <div className="ui icon input">
               <input
                 type="text"
                 style={{paddingRight: '20px'}}
@@ -106,8 +117,6 @@ render() {
                 placeholder="Plant Name"
                 ref={ input => this.plantNameSearchTerm = input}
               />
-              <i aria-hidden="true" className="search icon"></i>
-              </div>
               <Button type="submit">
                 Add To Collection
               </Button>

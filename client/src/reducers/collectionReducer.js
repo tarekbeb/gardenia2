@@ -6,25 +6,43 @@ const Initial_State = {
 }
 
 let collectionReducer = (state = Initial_State, action) => {
-    console.log('collection', action)
     switch (action.type){
         case COL_ADD_PLANT:
             return {
                 ...state,
                 collection: state.collection.concat(action.payload)
             }
+
+            // return {
+            //     ...state,
+            //     collection: action.payload
+            // }
+            
         case COL_DISPLAY_PLANT: 
+            // return {
+            //     ...state,
+            //     dbCollection : state.dbCollection.concat(action.payload)
+            // }
+
             return {
                 ...state,
-                dbCollection : state.dbCollection.concat(action.payload)
+                dbCollection : action.payload
             }
+
         case COL_REMOVE_PLANT: 
             let newCollection = state.collection.filter((plant)=>{
             return plant.name !== action.payload.name
             })
+
+            let new_dbCollection = state.dbCollection.filter((plant) =>{
+
+                console.log("vero:reducer", plant.plant_name, action.payload.item.plant_name)
+                return plant.plant_name !== action.payload.item.plant_name
+            })
         return  {
             ...state,
-            collection: newCollection
+            collection: newCollection,
+            dbCollection: new_dbCollection
         }
     default:
         return state;

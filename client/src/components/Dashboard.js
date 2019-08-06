@@ -80,8 +80,8 @@ class Dashboard extends React.Component {
 
         return (
             <>
-                {/* <WeatherComponent /> */}
-          <Collection/>
+              {/* <WeatherComponent /> */}
+              <Collection/>
       {/* <Card.Group className="segment centered" id="cardback">
       <Card>
         <Card.Content>

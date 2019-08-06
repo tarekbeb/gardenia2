@@ -1,5 +1,6 @@
 
 import { AUTH_USER, AUTH_ERROR, AUTH_SIGNOUT, COL_ADD_PLANT, COL_DISPLAY_PLANT, COL_REMOVE_PLANT, WISH_ADD_PLANT, WISH_DISPLAY_PLANT, WISH_REMOVE_PLANT} from './types';
+import addWeather from './addWeather';
 
 import axios from 'axios';
 
@@ -39,12 +40,12 @@ export const signin = (formProps, callback) => async dispatch => {
 
     try {
         let response = await axios.post('/signin', formProps);
-        decodeToken(response.data.token)
-
+        decodeToken(response.data.token);
+        console.log(localStorage.zipcode)
         // console.log('signin form props')
         // console.log(formProps)
         
-        dispatch({type: AUTH_USER, payload: {token :response.data.token, isLoggedIn: true, username: localStorage.user_name, zipcode: formProps.zipcode}});
+        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: localStorage.user_name, zipcode: localStorage.zipcode});
 
         localStorage.setItem('token', response.data.token);
         callback();
@@ -72,7 +73,10 @@ export const addToCollectionDb = (plant) => async dispatch =>{
         moisture: plant.moisture, temperature_range: plant.temperature_range,
         shade_tolerance: plant.shade_tolerance, image_url:plant.image_url
     })
+
     dispatch({type: COL_ADD_PLANT, payload: plant})
+
+    console.log('vero: addToCollection')
 }
 
 export const displayCollectionDb = () => async dispatch => {
@@ -80,6 +84,8 @@ export const displayCollectionDb = () => async dispatch => {
     console.log('response')
     console.log(response.data)
     dispatch({type: COL_DISPLAY_PLANT, payload: response.data});
+    
+    console.log('vero: displayCollectionDb')
 }
 
 export const removeFromCollectionDb = (plant) => async dispatch => {
@@ -91,7 +97,7 @@ export const removeFromCollectionDb = (plant) => async dispatch => {
     console.log(`remove from wishlist action`)
     console.log(plant)
     console.log(response)
-    dispatch({type: COL_REMOVE_PLANT, payload: response})
+    dispatch({type: COL_REMOVE_PLANT, payload: plant})
 }
 
 export const addToWishlistDb = (plant) => async dispatch => {
@@ -112,12 +118,13 @@ export const displayWishlistDb = () => async dispatch => {
 
 export const removeFromWishlistDb = (plant) => async dispatch =>{
     let plant_id = plant.item.id
-    console.log(plant_id)
+    //console.log(plant_id)
     let user_id = localStorage.user_id
     let response = await axios.post('/wishRemove', {user_id:user_id, plant_id: plant_id})
-    console.log(`remove from wishlist action`)
-    console.log(plant)
-    console.log(response)
-    dispatch({type: WISH_REMOVE_PLANT, payload: response})
+    //console.log(`remove from wishlist action`)
+    console.log(`sending this to remove ${plant}`)
+    //console.log("remove response: ", response)
+    dispatch({type: WISH_REMOVE_PLANT, payload: plant})
 }
+
 

@@ -17,7 +17,8 @@ let weatherReducer = (
                     ...state,
                     forecast: action.forecast,
                     tempMain: action.tempMain,
-                    weatherImage: action.weatherImage
+                    weatherImage: action.weatherImage,
+                    zipcode: action.zipcode
                 }
         default:
             return state;

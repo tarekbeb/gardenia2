@@ -9,16 +9,16 @@ const Initial_State = {
 }
 
 let auth = (state = Initial_State, action) => {
-    console.log('payloadddd',action)
+    console.log(action.payload)
     switch(action.type){
         case AUTH_USER:
 
             return {
                 ...state,
-                authenticated: action.payload.token,
-                isLoggedIn: action.payload.isLoggedIn,
-                username: action.payload.username,
-                zipcode: action.payload.zipcode
+                authenticated: action.payload,
+                isLoggedIn: action.isLoggedIn,
+                username: action.username,
+                zipcode: action.zipcode
             }
             
         case AUTH_ERROR:

@@ -27,7 +27,8 @@ let tokenForUse = (user) => {
 // })
 
 router.post('/signin', requireSignin, (req, res) => {
-    res.send({ token: tokenForUse(req.user) })
+    
+        res.send({ token: tokenForUse(req.user) })
 })
 
 router.post('/signup', (req, res) => {

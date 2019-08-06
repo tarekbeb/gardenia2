@@ -86,7 +86,7 @@ const NavBarDesktop = (props) => {
         <Menu.Menu position="right">
             { (props.desktopProps.isLoggedIn) &&
                 <Menu.Item >
-                    Hello, {localStorage.user_name}
+                    Hello, {props.desktopProps.username}
                 </Menu.Item>
             }
             { (Object.keys(props.desktopProps.weatherImage).length > 0) &&
