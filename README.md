@@ -18,7 +18,7 @@ It has a user interface where it displays plants in your collection and link the
  * YL38 69 
 
 ## Collaborators
- * Frontend: Chris Humphrey 
+ * Front-end: Chris Humphrey 
  * UI: David Yun 
  * Hardware: Ollie Vargas 
- * Backend: Tarek Al Beb
+ * Back-end: Tarek Al Beb
