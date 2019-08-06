@@ -15,13 +15,16 @@ router.post('/wishAdd', (req, res) => {
     let temperature_range = req.body.temperature_range;
     let shade_tolerance = req.body.shade_tolerance;
     let image_url = req.body.image_url;
+    let in_collection = false;
+    let in_wishlist = true;
     console.log(`user ID ${user_id} plantId ${plant_id}`)
     //check for duplication
     db.plant_collection.findAll({ where: { plant_id: plant_id, user_id: user_id }})
     .then((result) => {
       if(result.length === 0) {
         db.plant_collection.create({user_id: user_id, plant_id: plant_id, plant_name:plant_name, moisture:moisture,
-            temperature_range:temperature_range, shade_tolerance:shade_tolerance, image_url:image_url
+            temperature_range:temperature_range, shade_tolerance:shade_tolerance, image_url:image_url,
+            in_collection: in_collection, in_wishlist: in_wishlist
         })
         .then()
         res.send('added to database')

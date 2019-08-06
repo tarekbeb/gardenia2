@@ -2,12 +2,10 @@ import React from 'react';
 import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import * as actions from '../../actions';
 import '../login.css';
-import {
-    Button,
-    Label
-} from 'semantic-ui-react';
+import { Grid, Form, Segment, Button, Header, Message, Icon} from 'semantic-ui-react';
 
 
 class Signup extends React.Component {
@@ -22,50 +20,52 @@ class Signup extends React.Component {
 
         const { handleSubmit } = this.props;
         return (
-            <div id='grass' style={{textAlign: 'center', paddingTop: '30px'}}>
-                <div style={{display: 'inline-block'}}>
-                    <form onSubmit={handleSubmit(this.onSubmit)}>
-                        <fieldset>
-                            <Label>Username</Label>
-                            <Field
-                                name='username'
-                                type='text'
-                                component='input'
-                                autoComplete='none' 
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <Label>Email</Label>
-                            <Field
-                                name='email'
-                                type='text'
-                                component='input'
-                                autoComplete='none' 
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <Label>Zipcode</Label>
-                            <Field
-                                name='zipcode'
-                                type='integer'
-                                component='input'
-                                autoComplete='none' 
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <Label>Password</Label>
+
+            <Grid textAlign="center" verticalAlign="middle" className="app">
+                <Grid.Column style={{backgroundColor: 'transparent',maxWidth: 450}}>
+
+                <Form onSubmit={handleSubmit(this.onSubmit)} >
+                        <Segment>
+                        {/* <Icon name="lock" color="teal"/> */}
+                        <Header as="h1" icon color='teal' textAlign="center">
+                        Signup!
+                    </Header>
+                
+                            <Field 
+                                name="username" 
+                                component='input' 
+                                placeholder="username" 
+                                type="text" />
+                            <Field 
+                                name="email" 
+                                component='input' 
+                                placeholder="email address" 
+                                type="text" />
+                            <Field 
+                                name="zipcode" 
+                                component='input' 
+                                placeholder="12345" 
+                                type="number" />
                             <Field
                                 name='password'
                                 type='password'
                                 component='input'
-                                autoComplete='none'
+                                placeholder="password"
                             />
-                        </fieldset>
-                        <div>{this.props.errorMessage}</div>
-                        <Button>Sign Up</Button>
-                    </form>
-                </div>
-            </div>
+                            <Button color="teal" fluid size="large">Signup</Button>
+                        </Segment>
+                    </Form>
+                    {this.props.errorMessage && (
+                            <Message error>
+                                <h3>Error</h3>
+                                {this.props.errorMessage}
+                            </Message>
+                        )}
+                        <Message> Already have an account? <Link to="/signin" >Sign in</Link> </Message>
+
+                        </Grid.Column>
+            </Grid>
+
         );
     }
 }

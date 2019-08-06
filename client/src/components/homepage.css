@@ -1,4 +1,31 @@
-#test {
-    background-image: url("https://media.istockphoto.com/vectors/tall-evergreen-forest-vector-id923184262?k=6&m=923184262&s=612x612&w=0&h=YJoVVUisqXoX2qi1uamrb3k0xHW2JWDdXH3QOxwE8uI=");
-}
 
+body {
+    height: 200px;
+}
+.ui.inverted.vertical.center.aligned.segment{
+    background-image: url("https://media.istockphoto.com/vectors/tall-evergreen-forest-vector-id923184262?k=6&m=923184262&s=612x612&w=0&h=YJoVVUisqXoX2qi1uamrb3k0xHW2JWDdXH3QOxwE8uI=");
+    background-repeat: no-repeat;
+    background-size: cover;
+        border-radius: 20px; 
+    height: 600px;
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s;
+}
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 3s;
+}
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

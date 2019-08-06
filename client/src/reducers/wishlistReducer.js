@@ -9,7 +9,6 @@ let wishlistReducer = (state = Initial_State, action) => {
     switch (action.type){
         case WISH_ADD_PLANT:
             console.log(action.payload)
-            console.log(`inside wishlist add reducer ${action.payload.name}`)
             return {
                 ...state,
                 wishlist: state.wishlist.concat(action.payload)

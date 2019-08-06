@@ -1,42 +1,32 @@
-import { COL_ADD_PLANT, COL_REMOVE_PLANT, DISPLAY_COL_ITEMS} from '../actions/types';
+import {COL_ADD_PLANT, COL_REMOVE_PLANT, COL_DISPLAY_PLANT} from '../actions/types';
 
 const Initial_State = {
-    collection: []
+    collection: [],
+    dbCollection: []
 }
 
 let collectionReducer = (state = Initial_State, action) => {
-  
-    
-    switch(action.type){
+    switch (action.type){
         case COL_ADD_PLANT:
             return {
                 ...state,
-                collection: state.collection.concat({
-                    plant: action.payload
-                })
+                collection: state.collection.concat(action.payload)
             }
-        case DISPLAY_COL_ITEMS:
+        case COL_DISPLAY_PLANT: 
             return {
                 ...state,
-                collection: state.collection.concat({
-                    plant: action.payload
-                })
+                dbCollection : state.dbCollection.concat(action.payload)
             }
-            
-        case COL_REMOVE_PLANT:
-
+        case COL_REMOVE_PLANT: 
             let newCollection = state.collection.filter((plant)=>{
-                let plantArray = plant.plant.map(item => (
-                    item.plant_id
-                ))
-                return plantArray !== action.payload.plant_id
-                })
-            return  {
-                ...state,
-                collection: newCollection
-            }
-        default:
-            return state;
+            return plant.name !== action.payload.name
+            })
+        return  {
+            ...state,
+            collection: newCollection
+        }
+    default:
+        return state;
     }
 }
 

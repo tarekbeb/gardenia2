@@ -13,8 +13,13 @@ code {
 }
 
 html, body, .app {
-    height: 100vh;
     background-image: url("https://i.pinimg.com/originals/d1/93/02/d193028141f8f76d5e125c4e2582f12a.png");
     padding: 1em;
-    
+    background-size: cover;
+    border-radius: 25px;
+ }
+
+.ui.fluid.container{
+  background: black;
+  border-radius: 25px;
 }

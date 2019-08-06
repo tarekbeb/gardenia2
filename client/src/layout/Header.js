@@ -72,6 +72,8 @@ const NavBarMobile = ({
     );
 
 const NavBarDesktop = (props) => {
+    console.log('props')
+    console.log(props)
     return (
     <Menu fixed="top" inverted>
         <Menu.Item as={Link} to='/'>

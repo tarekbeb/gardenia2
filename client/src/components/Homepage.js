@@ -21,8 +21,8 @@ const getWidth = () => {
 }
 
 const HomepageHeading = ({ mobile }) => (
-    <div id='test'>
-        <Container text>
+
+        <Container text className="fade-in">
             <Header
             as='h1'
             content='Gardenia'
@@ -51,7 +51,7 @@ const HomepageHeading = ({ mobile }) => (
             <Icon name='right arrow' />
             </Button>
         </Container>
-    </div>
+
 )
 
 HomepageHeading.propTypes = {

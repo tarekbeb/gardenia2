@@ -15,7 +15,8 @@ import reducers from './reducers';
 import Header from './layout/Header';
 import reduxThunk from 'redux-thunk';
 import Search from './components/Search';
-import Wishlist from './components/Wishlist'
+import Wishlist from './components/Wishlist';
+import Collection from './components/Collection';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -32,11 +33,11 @@ ReactDOM.render(
                     <Route exact path='/' component={Homepage}/>
                     <Route path='/search' component={Search}/>
                     <Route path='/dashboard' component={Dashboard}/>
-                    <Route path='/signin' component={Signin}/>
+                    <Route path='/signin' component={Login}/>
                     <Route path='/signup' component={Signup}/>
                     <Route path='/signout' component={Signout}/>
-                    <Route path='/wishlist' component={Wishlist}/>
-                    <Route path='/login' component={Login}/>
+                    <Route path='/collection' component={Collection}/>
+                    {/* <Route path='/login' component={Login}/> */}
                 </Switch>
             </Header>
         </BrowserRouter>

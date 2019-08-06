@@ -17,7 +17,7 @@ let requireSignin = passport.authenticate('local', { session: false });
 
 let tokenForUse = (user) => {
     let timestamp = new Date().getTime;
-    return jwt.encode({ user_name: user.username, sub: user.id, iat: timestamp }, config.secret)
+    return jwt.encode({ user_name: user.username, sub: user.id, zipcode: user.zipcode, iat: timestamp }, config.secret)
 }
 
 // request route => passport => authorized to see route
@@ -33,11 +33,12 @@ router.post('/signin', requireSignin, (req, res) => {
 router.post('/signup', (req, res) => {
     let username = req.body.username;
     let email = req.body.email;
+    let zipcode = req.body.zipcode;
     let password = bcrypt.hashSync(req.body.password, 8);
 
     // REQUIRE USERNAME, EMAIL AND PASSWORD
-    if(!username || !email || !password) {
-        return res.status(422).send({ error: 'Please provide a username, email and password.'})
+    if(!username || !email || !password || !zipcode) {
+        return res.status(422).send({ error: 'Please provide a username, email, zipcode and password.'})
     }
 
     // CHECK FOR DUPLICATION
@@ -45,7 +46,7 @@ router.post('/signup', (req, res) => {
     .then(results => {
         if(results.length === 0){
             // ADD RECORD TO DATABASE
-            db.user.create({username: username, email: email, password: password})
+            db.user.create({username: username, email: email, password: password, zipcode: zipcode})
             .then((user) => {
                 return res.json({ token: tokenForUse(user)})
             }).catch((err) => {

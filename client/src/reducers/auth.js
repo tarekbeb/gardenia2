@@ -4,7 +4,8 @@ const Initial_State = {
     authenticated: "",
     errorMessage: "",
     isLoggedIn: false,
-    username: ''
+    username: '',
+    zipcode: 0
 }
 
 let auth = (state = Initial_State, action) => {
@@ -16,7 +17,8 @@ let auth = (state = Initial_State, action) => {
                 ...state,
                 authenticated: action.payload,
                 isLoggedIn: action.isLoggedIn,
-                username: action.username
+                username: action.username,
+                zipcode: action.zipcode
             }
             
         case AUTH_ERROR:

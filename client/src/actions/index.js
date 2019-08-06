@@ -1,5 +1,5 @@
 
-import { AUTH_USER, AUTH_ERROR, AUTH_SIGNOUT, COL_ADD_PLANT, DISPLAY_COL_ITEMS, COL_REMOVE_PLANT, WISH_ADD_PLANT, WISH_DISPLAY_PLANT, WISH_REMOVE_PLANT} from './types';
+import { AUTH_USER, AUTH_ERROR, AUTH_SIGNOUT, COL_ADD_PLANT, COL_DISPLAY_PLANT, COL_REMOVE_PLANT, WISH_ADD_PLANT, WISH_DISPLAY_PLANT, WISH_REMOVE_PLANT} from './types';
 
 import axios from 'axios';
 
@@ -11,8 +11,9 @@ let decodeToken = (token)=>{
     let token_payload = split_token[1];
     let decoded_token_string = atob(token_payload);
     let decoded_token = JSON.parse(decoded_token_string)
-    // localStorage.setItem('user_id', decoded_token.sub);
+    localStorage.setItem('user_id', decoded_token.sub);
     localStorage.setItem('user_name', decoded_token.user_name)
+    localStorage.setItem('zipcode', decoded_token.zipcode)
     // console.log(`local storage user ID: ${localStorage.user_id}`)
     // console.log(`local Storage user name: ${localStorage.user_name}`)
 }
@@ -25,7 +26,7 @@ export const signup = (formProps, callback) => async dispatch =>{
 
         //dispatch
 
-        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: formProps.username});
+        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: formProps.username, zipcode: formProps.zipcode});
         localStorage.setItem('token', response.data.token);
         callback();
     }
@@ -40,10 +41,10 @@ export const signin = (formProps, callback) => async dispatch => {
         let response = await axios.post('/signin', formProps);
         decodeToken(response.data.token)
 
-        console.log('signin form props')
-        console.log(localStorage.user_name)
+        // console.log('signin form props')
+        // console.log(formProps)
         
-        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: localStorage.user_name});
+        dispatch({type: AUTH_USER, payload: response.data.token, isLoggedIn: true, username: localStorage.user_name, zipcode: formProps.zipcode});
 
         localStorage.setItem('token', response.data.token);
         callback();
@@ -66,42 +67,31 @@ export const signout = () => {
 //Add/remove from collection:
 export const addToCollectionDb = (plant) => async dispatch =>{
 
-    // try{
-        // console.log(`indide addtocollectionDB plant ID ${plant.item.id}`)
-        let response = await axios.post('/colAdd', 
-        {plant_id : plant.id, user_id: localStorage.user_id})
-
-    console.log(`add to collection axios response: ${response}`)
-
-    //dispatch
-
-    dispatch({type: COL_ADD_PLANT, 
-        payload: plant});
-
-    localStorage.setItem('plant_id', response.data.plant_id);
-    console.log(`after setItem localstorage ${response.data.plant_id}`) 
+    let response = await axios.post('/colAdd', 
+    {user_id: localStorage.user_id, plant_name: plant.name, plant_id: plant.id, 
+        moisture: plant.moisture, temperature_range: plant.temperature_range,
+        shade_tolerance: plant.shade_tolerance, image_url:plant.image_url
+    })
+    dispatch({type: COL_ADD_PLANT, payload: plant})
 }
 
 export const displayCollectionDb = () => async dispatch => {
     let response = await axios.post('/collection', {user_id: localStorage.user_id})
     console.log('response')
     console.log(response.data)
-    dispatch({type: DISPLAY_COL_ITEMS, payload: response.data});
+    dispatch({type: COL_DISPLAY_PLANT, payload: response.data});
 }
 
-export const removeFromCollectionDb = (renderPlant) => async dispatch => {
+export const removeFromCollectionDb = (plant) => async dispatch => {
     
-//<<<<<<< HEAD
-    // let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: plants.plant_id})
-    // console.log(`${plants.plant_id}`)
-    // dispatch({type: COL_REMOVE_PLANT, payload: response.item})
-//=======
-    let response = await axios.post('/colRemove', {user_id: localStorage.user_id, plant_id: renderPlant.plant_id})
-    console.log('action')
-    console.log(renderPlant)
-    dispatch({type: COL_REMOVE_PLANT, payload: renderPlant})
-//>>>>>>> master
-    // localStorage.removeItem('plant_id')
+    let plant_id = plant.item.id
+    console.log(plant_id)
+    let user_id = localStorage.user_id
+    let response = await axios.post('/colRemove', {user_id:user_id, plant_id: plant_id})
+    console.log(`remove from wishlist action`)
+    console.log(plant)
+    console.log(response)
+    dispatch({type: COL_REMOVE_PLANT, payload: response})
 }
 
 export const addToWishlistDb = (plant) => async dispatch => {

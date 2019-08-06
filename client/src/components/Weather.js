@@ -15,9 +15,6 @@ let apiAddress="http://api.openweathermap.org/data/2.5/weather?zip=";
 let imperial="&units=imperial";
 let apiKey="&appid=70fac660e1d65b98fb8ce269ad67799d";
 
-// const WeatherAPI = "http://api.openweathermap.org/data/2.5/weather?zip=77007&units=imperial&appid=dce850dc2414fe1c6616f016a88fcf20";
-
-
 class Weather extends React.Component {
     constructor(props) {
         super(props);
