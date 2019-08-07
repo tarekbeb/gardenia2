@@ -11,11 +11,8 @@ import {
   Segment,
   Sidebar,
   Visibility,
-  Image,
 } from 'semantic-ui-react';
 // import { generateKeyPair } from 'crypto';
-import myImage from '../../src/Garden.jpg';
-
 
 const getWidth = () => {
   const isSSR = typeof window === 'undefined'
@@ -26,8 +23,7 @@ const getWidth = () => {
 const HomepageHeading = ({ mobile }) => (
 
         <Container text className="fade-in">
-            <Image src={myImage} size="massive" centered fluid spaced />
-            {/* <Header
+            <Header
             as='h1'
             content='Gardenia'
             inverted
@@ -38,7 +34,7 @@ const HomepageHeading = ({ mobile }) => (
                 marginTop: mobile ? '1.5em' : '1.5em',
                 color: "black"
             }}
-            /> */}
+            />
             <Header
             as='h2'
             content="Always wondering if your plants need water? Fret no more! Let them tell you when they are thursty..."
